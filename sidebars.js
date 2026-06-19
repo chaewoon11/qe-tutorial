@@ -14,7 +14,11 @@ const sidebars = {
       type: 'category',
       label: 'Tutorial',
       collapsed: false,
-      items: ['chapters/first-scf', 'chapters/plane-wave-dft'],
+      items: [
+        'chapters/first-scf',
+        'chapters/plane-wave-dft',
+        'chapters/pseudopotentials',
+      ],
     },
   ],
 };

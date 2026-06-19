@@ -40,10 +40,33 @@ from Chapter 0,
 $$
 \left[-\tfrac{1}{2}\nabla^2 + v_\text{KS}(\mathbf{r})\right]\psi_i = \varepsilon_i\,\psi_i,
 \qquad
-v_\text{KS} = v_\text{ext} + \underbrace{v_\text{H}[n]}_{\text{Hartree}} + \underbrace{v_\text{xc}[n]}_{\text{exchange–correlation}} ,
+v_\text{KS} = v_\text{ext} + \underbrace{v_\text{H}[n]}_{\text{Hartree}} + \underbrace{v_\text{xc}[n]}_{\text{exchange–correlation}} .
 $$
 
-and the total energy splits into terms you have already met in the output:
+The three pieces are explicit functionals of the geometry and density. The
+**external potential** is the electrostatic attraction of the nuclei (charge
+$Z_I$ at position $\mathbf{R}_I$) acting on the electrons,
+
+$$
+v_\text{ext}(\mathbf{r}) = -\sum_I \frac{Z_I}{|\mathbf{r}-\mathbf{R}_I|},
+$$
+
+which in practice is replaced by the smooth **pseudopotential** for each species
+(§5). The **Hartree** term is the classical electrostatic potential of the
+electron density itself,
+
+$$
+v_\text{H}(\mathbf{r}) = \int \frac{n(\mathbf{r}')}{|\mathbf{r}-\mathbf{r}'|}\,d\mathbf{r}',
+$$
+
+and the **exchange–correlation** potential is the functional derivative
+$v_\text{xc}(\mathbf{r}) = \delta E_\text{xc}[n]/\delta n(\mathbf{r})$ — the one
+piece we must approximate. Only $v_\text{ext}$ knows what material this is;
+$v_\text{H}$ and $v_\text{xc}$ depend on $\mathbf{r}$ only through $n$, which is
+exactly why the equations must be solved self-consistently.
+
+Correspondingly, the total energy splits into terms you have already met in the
+output:
 
 ```text
      one-electron contribution =    -120.23947851 Ry   ! kinetic + v_ext on the electrons
@@ -207,6 +230,16 @@ of how far the energy still is from self-consistency; when it drops below
 `conv_thr`, QE stops. Exercise 2 of Chapter 0 (smaller `mixing_beta` → more
 iterations) is just this loop taking smaller, safer steps.
 
+:::tip Production rule of thumb
+QE's default `conv_thr` (`1.0d-6`) is fine for a quick total energy, but in my
+experience a target of about **`1.0d-20` Ry** is a good habit for
+production-quality work. It costs only a handful of extra iterations on an easy
+system like this, and it pays off later: forces, stresses, and especially phonon
+(DFPT) calculations differentiate the energy and are far more sensitive to an
+under-converged density than the energy itself is. Converge tight from the start
+so the same setup carries through the whole workflow.
+:::
+
 ### What the solver produces
 
 After "End of self-consistent calculation", QE prints the Kohn–Sham eigenvalues
@@ -291,5 +324,6 @@ finer grid.
 
 ---
 
-**Next:** Chapter 2 — Pseudopotentials & cutoffs *(coming soon)*: what NC / US /
-PAW actually mean, and how to choose `ecutwfc` and `ecutrho` for a given set.
+**Next:** [Chapter 2 — Pseudopotentials & cutoffs](./02-pseudopotentials.md):
+what NC / US / PAW actually mean, and how to choose `ecutwfc` and `ecutrho` for
+a given set.

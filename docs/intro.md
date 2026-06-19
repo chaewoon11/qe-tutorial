@@ -48,7 +48,7 @@ Chapters 0–7 cover the ground state and electronic structure; 8–12 cover
 functionals, magnetism, lattice dynamics, and HPC.
 
 :::info Status
-This site is under active development. **Chapters 0–1** are complete and
+This site is under active development. **Chapters 0–2** are complete and
 runnable; later chapters are being written.
 :::
 
