@@ -105,6 +105,12 @@ K_POINTS automatic                   ! Monkhorst–Pack grid (Ch. 3)
   6 6 6 0 0 0
 ```
 
+Here `celldm(1) = 10.6829` bohr is the room-temperature **experimental** lattice
+constant $a = 5.65325$ Å ([Blakemore, *J. Appl. Phys.* **53**, R123
+(1982)](https://doi.org/10.1063/1.331665)). We fix it by hand for now;
+[Chapter 4](./04-relaxation.md) relaxes the structure and finds that PBE prefers
+a slightly larger value.
+
 :::tip Why `ibrav = 0`?
 You *could* let QE build the fcc lattice from a symmetry code (`ibrav = 2`), but
 writing `CELL_PARAMETERS` explicitly is more transparent and generalizes to any

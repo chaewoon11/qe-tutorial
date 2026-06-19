@@ -134,8 +134,11 @@ equilibrium lattice constant $a_0$ and the bulk modulus $B_0$:
 The fit yields:
 
 - **PBE equilibrium $a_0 \approx 5.756$ Å**, versus the experimental
-  **5.653 Å** — PBE overestimates by **+1.8 %**, the systematic GGA error for
-  semiconductor lattice constants.
+  **5.65325 Å** ([Blakemore, *J. Appl. Phys.* **53**, R123
+  (1982)](https://doi.org/10.1063/1.331665)) — PBE overestimates by **+1.8 %**.
+  This is the well-documented systematic tendency of GGA functionals to
+  over-expand solids ([Haas, Tran & Blaha, *Phys. Rev. B* **79**, 085104
+  (2009)](https://doi.org/10.1103/PhysRevB.79.085104)).
 - **Bulk modulus $B_0 \approx 60$ GPa** (experiment ≈ 75 GPa) — PBE
   *under*estimates the stiffness, the flip side of the too-large cell.
 
@@ -168,7 +171,7 @@ stress before you quote an energy.)
    $(\tfrac14,\tfrac14,\tfrac14)$ to $(0.26,0.25,0.25)$ and run a `relax`
    (`calculation='relax'`, add `&ions`). Where does it return to, and what does
    the initial force on As tell you?
-3. **PBE vs experiment.** Your $a_0$ is ~1 % too large. Why does that matter for,
+3. **PBE vs experiment.** Your $a_0$ is ~1.8 % too large. Why does that matter for,
    say, a predicted phonon frequency or band gap? (Think about what later
    chapters compute *at* this lattice constant.)
 4. **Why re-converge?** Run a single `scf` at the relaxed lattice constant and
@@ -190,7 +193,7 @@ is $-\partial E/\partial\mathbf{R}$. The magnitude of the *initial* force is the
 slope of the energy along that displacement.
 
 **3. PBE vs experiment.** Everything downstream is computed *at* the lattice
-constant you choose. A 1 % too-large cell softens bonds: phonon frequencies come
+constant you choose. A ~2 % too-large cell softens bonds: phonon frequencies come
 out too low, and the band gap shifts (a larger lattice generally narrows the gap).
 This is why some workflows use the *experimental* lattice constant, or a better
 functional, when the property is lattice-sensitive.
