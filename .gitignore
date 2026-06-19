@@ -1,0 +1,17 @@
+# QE scratch / run artifacts
+out/
+*.save/
+_ph0/
+*.wfc*
+*.hub
+*.mix*
+*.igk*
+*.dat.*
+CRASH
+
+# Editor / OS
+*.swp
+.DS_Store
+
+# Learner's own runs (reference outputs in ref/ ARE tracked)
+my.*.out
