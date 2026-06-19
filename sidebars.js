@@ -19,6 +19,7 @@ const sidebars = {
         'chapters/plane-wave-dft',
         'chapters/pseudopotentials',
         'chapters/brillouin-zone',
+        'chapters/relaxation',
       ],
     },
   ],

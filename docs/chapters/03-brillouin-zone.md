@@ -233,5 +233,5 @@ density. Big cells → coarse grids; small cells → dense grids.
 
 ---
 
-**Next:** Chapter 4 — Structural optimization *(coming soon)*: forces, stress,
-and relaxing the cell with `relax` / `vc-relax`.
+**Next:** [Chapter 4 — Structural optimization](./04-relaxation.md): forces,
+stress, and relaxing the cell with `relax` / `vc-relax`.
