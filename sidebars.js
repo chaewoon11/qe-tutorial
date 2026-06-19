@@ -18,6 +18,7 @@ const sidebars = {
         'chapters/first-scf',
         'chapters/plane-wave-dft',
         'chapters/pseudopotentials',
+        'chapters/brillouin-zone',
       ],
     },
   ],

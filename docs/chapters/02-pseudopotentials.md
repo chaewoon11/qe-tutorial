@@ -17,7 +17,7 @@ cutoffs `ecutwfc` and `ecutrho`.
 
 ---
 
-## 1. The frozen core, and why we pseudize
+## 1. The frozen core, and why we "pseudize"
 
 Two facts make core electrons a nuisance for a plane-wave code:
 
@@ -196,6 +196,6 @@ energy hides. Hence a generous `ecutrho` even when $E$ looks converged.
 
 ---
 
-**Next:** Chapter 3 — Brillouin-zone sampling & smearing *(coming soon)*: the
-other half of convergence — how dense a k-grid you need, and how metals differ
-from semiconductors.
+**Next:** [Chapter 3 — Brillouin-zone sampling & smearing](./03-brillouin-zone.md):
+the other half of convergence — how dense a k-grid you need, and how metals
+differ from semiconductors.
