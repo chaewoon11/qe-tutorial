@@ -1,0 +1,3 @@
+&projwfc
+ prefix='gaas', outdir='./out', filpdos='gaas', Emin=-16.0, Emax=12.0, DeltaE=0.02
+/

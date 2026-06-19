@@ -177,6 +177,6 @@ and W.
 
 ---
 
-**Next:** Chapter 6 — Density of states & PDOS *(coming soon)*: from eigenvalues
+**Next:** [Chapter 6 — Density of states & PDOS](./06-dos.md): from eigenvalues
 to $g(E)$, and projecting onto atomic orbitals to see *what* the bands are made
 of.

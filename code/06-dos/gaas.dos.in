@@ -1,0 +1,3 @@
+&dos
+ prefix='gaas', outdir='./out', fildos='gaas.dos', Emin=-16.0, Emax=12.0, DeltaE=0.02
+/

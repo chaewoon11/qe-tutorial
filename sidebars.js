@@ -21,6 +21,7 @@ const sidebars = {
         'chapters/brillouin-zone',
         'chapters/relaxation',
         'chapters/bands',
+        'chapters/dos',
       ],
     },
   ],
