@@ -1,0 +1,22 @@
+// @ts-check
+
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
+const sidebars = {
+  tutorialSidebar: [
+    'intro',
+    {
+      type: 'category',
+      label: 'Setup',
+      collapsed: false,
+      items: ['setup/installation'],
+    },
+    {
+      type: 'category',
+      label: 'Tutorial',
+      collapsed: false,
+      items: ['chapters/first-scf'],
+    },
+  ],
+};
+
+export default sidebars;

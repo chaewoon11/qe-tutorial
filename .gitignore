@@ -9,6 +9,17 @@ _ph0/
 *.dat.*
 CRASH
 
+# Docusaurus / Node
+node_modules/
+build/
+.docusaurus/
+.cache-loader/
+npm-debug.log*
+yarn-error.log*
+
+# Jupyter
+.ipynb_checkpoints/
+
 # Editor / OS
 *.swp
 .DS_Store
