@@ -1,24 +1,26 @@
 &control
     calculation   = 'scf'
-    prefix        = 'si'
+    prefix        = 'gaas'
     outdir        = './out'
     pseudo_dir    = '../pseudos'
     verbosity     = 'high'
 /
 &system
     ibrav         = 0
-    celldm(1)     = 10.26
+    celldm(1)     = 10.6829
     nat           = 2
-    ntyp          = 1
-    ecutwfc       = 40.0
+    ntyp          = 2
+    ecutwfc       = 50.0
+    ecutrho       = 400.0
     occupations   = 'fixed'
 /
 &electrons
-    conv_thr      = 1.0d-8
+    conv_thr      = 1.0d-20
     mixing_beta   = 0.7
 /
 ATOMIC_SPECIES
-  Si  28.0855  Si_ONCV_PBE-1.1.upf
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
 
 CELL_PARAMETERS alat
   -0.50   0.00   0.50
@@ -26,8 +28,8 @@ CELL_PARAMETERS alat
   -0.50   0.50   0.00
 
 ATOMIC_POSITIONS alat
-  Si  0.00  0.00  0.00
-  Si  0.25  0.25  0.25
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
 
 K_POINTS automatic
   6 6 6 0 0 0

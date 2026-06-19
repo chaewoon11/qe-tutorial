@@ -45,12 +45,17 @@ echo "" | pw.x 2>&1 | head    # prints the PWSCF banner, then waits for input
 
 ## 2. Pseudopotentials
 
-Every element needs a pseudopotential file (`.UPF`). This tutorial bundles
-**one** so Chapter 0 runs out of the box:
+Every element needs a pseudopotential file (`.UPF`). This tutorial bundles the
+GaAs pair so Chapter 0 runs out of the box:
 
 ```
-code/pseudos/Si_ONCV_PBE-1.1.upf     # norm-conserving PBE silicon (PseudoDojo)
+code/pseudos/Ga.pbe-dn-kjpaw_psl.0.2.upf    # PBE PAW gallium (3d in valence)
+code/pseudos/As.pbe-n-kjpaw_psl.0.2.upf     # PBE PAW arsenic
 ```
+
+Both are PBE PAW potentials from QE's **PSlibrary** — a consistent pair (same
+functional, same generation scheme), which matters: never mix pseudopotentials
+made with different functionals.
 
 For your own work, get a curated library:
 

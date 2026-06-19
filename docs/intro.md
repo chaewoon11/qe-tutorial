@@ -48,19 +48,19 @@ Chapters 0–7 cover the ground state and electronic structure; 8–12 cover
 functionals, magnetism, lattice dynamics, and HPC.
 
 :::info Status
-This site is under active development. **Chapter 0** is complete and runnable;
-later chapters are being written.
+This site is under active development. **Chapters 0–1** are complete and
+runnable; later chapters are being written.
 :::
 
 ## How to use this site
 
-1. Work through [**Setup**](setup/installation) to install Quantum ESPRESSO and
+1. Work through [**Setup**](setup/installation.md) to install Quantum ESPRESSO and
    get pseudopotentials.
 2. Read the chapters in order. Each is self-contained: theory, an annotated
    input file, the run command, the output explained line by line, and
    exercises.
-3. The runnable input files, reference outputs, and the bundled silicon
-   pseudopotential live in the
+3. The runnable input files, reference outputs, and the bundled GaAs
+   pseudopotentials live in the
    [`code/`](https://github.com/chaewoon11/qe-tutorial/tree/master/code)
    directory of the repository — clone it and follow along.
 
