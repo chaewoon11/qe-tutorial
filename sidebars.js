@@ -20,6 +20,7 @@ const sidebars = {
         'chapters/pseudopotentials',
         'chapters/brillouin-zone',
         'chapters/relaxation',
+        'chapters/bands',
       ],
     },
   ],

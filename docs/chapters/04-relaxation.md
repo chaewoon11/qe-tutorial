@@ -207,5 +207,5 @@ the residual stress is small but nonzero; pushing `ecutwfc` higher shrinks it.
 
 ---
 
-**Next:** Chapter 5 — Band structure *(coming soon)*: from the SCF density to
-`nscf` eigenvalues along a k-path, and reading off the (in)direct gap.
+**Next:** [Chapter 5 — Band structure](./05-bands.md): from the SCF density to
+eigenvalues along a k-path, and reading off the (in)direct gap.

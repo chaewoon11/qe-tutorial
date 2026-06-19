@@ -1,0 +1,3 @@
+&bands
+ prefix='gaas', outdir='./out', filband='gaas.bands.dat'
+/

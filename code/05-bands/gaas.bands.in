@@ -1,0 +1,27 @@
+&control
+ calculation='bands', prefix='gaas', outdir='./out', pseudo_dir='../pseudos'
+/
+&system
+ ibrav=0, celldm(1)=10.6829, nat=2, ntyp=2, ecutwfc=50.0, ecutrho=400.0, occupations='fixed', nbnd=16
+/
+&electrons
+ conv_thr=1.0d-10
+/
+ATOMIC_SPECIES
+ Ga 69.723  Ga.pbe-dn-kjpaw_psl.0.2.upf
+ As 74.9216 As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+ -0.5 0.0 0.5
+  0.0 0.5 0.5
+ -0.5 0.5 0.0
+ATOMIC_POSITIONS alat
+ Ga 0.0 0.0 0.0
+ As 0.25 0.25 0.25
+K_POINTS tpiba_b
+6
+ 0.5 0.5 0.5 40
+ 0.0 0.0 0.0 40
+ 1.0 0.0 0.0 40
+ 1.0 0.5 0.0 20
+ 0.75 0.75 0.0 40
+ 0.0 0.0 0.0 1
