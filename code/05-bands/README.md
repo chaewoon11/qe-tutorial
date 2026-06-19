@@ -12,3 +12,12 @@ bands.x < gaas.bands.pp.in  > bands.pp.out   # -> gaas.bands.dat.gnu
 - `highsym.dat`        — high-symmetry tick positions + labels for the plot.
 
 Plotted by `../../notebooks/05-band-structure.ipynb` (direct gap 0.51 eV at Γ).
+
+## Fatbands
+
+```bash
+projwfc.x < gaas.fatproj.in > fatproj.out   # lsym=.false. -> gaas.fat.projwfc_up
+```
+
+`gaas.fat.projwfc_up` holds the per-(k,band) orbital projections; plotted by
+`../../notebooks/05-fatbands.ipynb`.

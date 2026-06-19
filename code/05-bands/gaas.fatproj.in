@@ -1,0 +1,3 @@
+&projwfc
+ prefix='gaas', outdir='./out', filproj='gaas.fat', lsym=.false.
+/

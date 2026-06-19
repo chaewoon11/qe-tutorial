@@ -108,6 +108,31 @@ PBE band gap = 0.51 eV  (direct, at Γ)
 GaAs is correctly predicted to be a **direct-gap** semiconductor — the physics
 that makes it a laser and LED material.
 
+### Fatbands: orbital character *on* the bands
+
+We can go further and colour each band by *what orbital it is made of*. Running
+`projwfc.x` on the bands calculation (with `lsym = .false.` to keep the
+per-k-point data along the path) projects every state onto atomic orbitals; a
+**fatband** plot then draws each band point with a size proportional to a chosen
+orbital's weight $|\langle \phi_\text{orb} | \psi_{n\mathbf{k}}\rangle|^2$:
+
+```bash
+cd code/05-bands
+projwfc.x < gaas.fatproj.in > fatproj.out    # -> gaas.fat.projwfc_up
+```
+
+[`notebooks/05-fatbands.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/05-fatbands.ipynb)
+parses that file and overlays the weights:
+
+![GaAs fatbands (PBE)](/img/05-fatbands.png)
+
+The orbital character is now unmistakable: **As 4p** (left) fattens the top of
+the valence band, while **Ga 3d** (right) fattens *only* the flat semicore
+cluster near −14.8 eV. This is the band-resolved cousin of the projected density
+of states — same `projwfc.x` projections, drawn on the dispersion instead of
+summed over the zone. (We use the projection machinery in earnest in
+[Chapter 6](./06-dos.md).)
+
 ## 5. The band-gap problem
 
 That **0.51 eV** is badly wrong: the experimental room-temperature gap of GaAs is
