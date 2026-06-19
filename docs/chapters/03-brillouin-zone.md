@@ -100,6 +100,41 @@ so the integrand is smooth and the k-sum converges much faster. The flavours:
 | `mv` | Marzari–Vanderbilt "cold" | small error, well-behaved — a good default for metals |
 | `fd` | Fermi–Dirac | a *physical* temperature $T$ (use when you actually mean finite-$T$) |
 
+### Where `degauss` (σ) enters
+
+The simplest choice is **Fermi–Dirac** — literally the finite-temperature
+occupation, with the smearing width $\sigma = $ `degauss` playing the role of
+$k_B T$:
+
+$$
+f(\varepsilon) = \frac{1}{\exp\!\big(\frac{\varepsilon-\varepsilon_F}{\sigma}\big)+1}.
+$$
+
+**Marzari–Vanderbilt cold smearing** (`mv`) is not a physical temperature but a
+smoothing function tuned to extrapolate to $T\!=\!0$. Writing the energy relative
+to the Fermi level in units of $\sigma$, $x \equiv (\varepsilon_F-\varepsilon)/\sigma$,
+the occupation is
+
+$$
+f(\varepsilon) = \tfrac{1}{2}\,\mathrm{erf}\!\Big(x-\tfrac{1}{\sqrt{2}}\Big)
++ \frac{1}{\sqrt{2\pi}}\,e^{-\left(x-\frac{1}{\sqrt{2}}\right)^{2}} + \tfrac{1}{2},
+$$
+
+and the corresponding broadened delta function (the "smearing" proper,
+$-\partial f/\partial\varepsilon$) is
+
+$$
+\tilde{\delta}_\sigma(\varepsilon) = \frac{1}{\sigma}\,\frac{1}{\sqrt{\pi}}\,
+\big(2-\sqrt{2}\,x\big)\,e^{-\left(x-\frac{1}{\sqrt{2}}\right)^{2}}.
+$$
+
+In both schemes $\sigma$ enters only as the **energy scale**: it is the width of
+the window around $\varepsilon_F$ over which the step is blurred (and an overall
+$1/\sigma$ in the delta). Larger $\sigma$ → broader smearing → easier
+k-convergence, but more deviation from the true $T\!=\!0$ result. The
+$-1/\sqrt{2}$ shift and the $(2-\sqrt{2}x)$ factor are exactly what make cold
+smearing's energy error (its $-TS$ term) far smaller than a plain Gaussian's.
+
 `degauss` is a convergence parameter, not a free knob: too small and you lose
 the benefit (slow k-convergence again); too large and you smear away real
 physics. The correct procedure is to converge the energy jointly in `degauss`
