@@ -1,0 +1,15 @@
+&inputpp
+    prefix   = 'gaas'
+    outdir   = './out'
+    plot_num = 0
+    filplot  = 'gaas.charge'
+/
+&plot
+    nfile = 1, filepp(1) = 'gaas.charge', weight(1) = 1.0
+    iflag = 2, output_format = 7
+    fileout = 'gaas.rho_110.dat'
+    e1(1)=1.0, e1(2)=1.0, e1(3)=0.0
+    e2(1)=0.0, e2(2)=0.0, e2(3)=1.0
+    x0(1)=0.0, x0(2)=0.0, x0(3)=0.0
+    nx=180, ny=130
+/

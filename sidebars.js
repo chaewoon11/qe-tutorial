@@ -22,6 +22,7 @@ const sidebars = {
         'chapters/relaxation',
         'chapters/bands',
         'chapters/dos',
+        'chapters/charge',
       ],
     },
   ],

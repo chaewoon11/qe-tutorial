@@ -152,5 +152,5 @@ as scattered spikes instead of one clean peak.
 
 ---
 
-**Next:** Chapter 7 — Charge density & visualization *(coming soon)*: `pp.x`,
+**Next:** [Chapter 7 — Charge density & visualization](./07-charge.md): `pp.x`,
 real-space densities, and looking at bonds with XCrySDen / VESTA.

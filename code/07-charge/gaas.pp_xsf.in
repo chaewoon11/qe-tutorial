@@ -1,0 +1,11 @@
+&inputpp
+    prefix   = 'gaas'
+    outdir   = './out'
+    plot_num = 0
+    filplot  = 'gaas.charge'
+/
+&plot
+    nfile = 1, filepp(1) = 'gaas.charge', weight(1) = 1.0
+    iflag = 3, output_format = 5
+    fileout = 'gaas.rho.xsf'
+/
