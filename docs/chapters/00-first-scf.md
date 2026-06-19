@@ -16,7 +16,7 @@ gallium arsenide and read every important number out of the output.
 
 ---
 
-## 1. The 60-second theory
+## 1. Brief introduction to the theory
 
 Density functional theory (DFT) replaces the impossible many-electron
 Schrödinger equation with a set of *single-particle* equations — the
