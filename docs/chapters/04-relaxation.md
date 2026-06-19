@@ -117,6 +117,14 @@ for a in 10.20 10.40 10.60 10.70 10.80 10.90 11.00 11.20; do
 done
 ```
 
+:::note Aside — I let Claude Code do the scanning
+In practice I don't babysit these parameter scans by hand. I have
+[Claude Code](https://claude.com/claude-code) generate the per-value inputs,
+launch the runs, and collect the energies into a data file — the explicit loop
+above is just the human-readable version of what the agent automates. The same
+goes for the cutoff and k-point sweeps in Chapters 2–3.
+:::
+
 [`notebooks/04-equation-of-state.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/04-equation-of-state.ipynb)
 fits these points to the **Birch–Murnaghan** equation of state, which gives the
 equilibrium lattice constant $a_0$ and the bulk modulus $B_0$:
