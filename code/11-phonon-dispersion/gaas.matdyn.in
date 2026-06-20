@@ -1,0 +1,14 @@
+&input
+    flfrc = 'gaas.fc'
+    asr   = 'simple'
+    flfrq = 'gaas.freq'
+    q_in_band_form = .true.
+    q_in_cryst_coord = .false.
+/
+6
+  0.5   0.5   0.5   40
+  0.0   0.0   0.0   40
+  1.0   0.0   0.0   40
+  1.0   0.5   0.0   20
+  0.75  0.75  0.0   40
+  0.0   0.0   0.0    1

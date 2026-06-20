@@ -1,0 +1,12 @@
+GaAs phonon dispersion: DFPT on a 4x4x4 q-grid
+&inputph
+    prefix   = 'gaas'
+    outdir   = './out'
+    fildyn   = 'gaas.dyn'
+    ldisp    = .true.
+    nq1 = 4, nq2 = 4, nq3 = 4
+    tr2_ph   = 1.0d-16
+    nmix_ph  = 12
+    epsil    = .true.
+    trans    = .true.
+/

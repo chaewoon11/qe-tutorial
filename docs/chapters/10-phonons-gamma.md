@@ -251,6 +251,6 @@ Cartesian directions equivalent (a $T_2$ representation). A 4-atom cell would ha
 
 ---
 
-**Next:** Chapter 11 — Phonon dispersion *(coming soon)*: a q-grid with `ph.x`,
-Fourier interpolation with `q2r.x` / `matdyn.x`, the acoustic sum rule, and the
-LO–TO splitting that the Born charges above will produce.
+**Next:** [Chapter 11 — Phonon dispersion](./11-phonon-dispersion.md): a q-grid
+with `ph.x`, Fourier interpolation with `q2r.x` / `matdyn.x`, the acoustic sum
+rule, and the LO–TO splitting that the Born charges above produce.

@@ -26,6 +26,7 @@ const sidebars = {
         'chapters/functionals',
         'chapters/magnetism',
         'chapters/phonons-gamma',
+        'chapters/phonon-dispersion',
       ],
     },
   ],
