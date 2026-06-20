@@ -19,8 +19,15 @@ LO–TO splitting), and runs the job on an HPC cluster.
 
 ## 1. From the harmonic approximation to the dynamical matrix
 
-The nuclei sit near equilibrium positions $\mathbf{R}_I^0$ and vibrate by small
-displacements $u_{I\alpha}$ (atom $I$, Cartesian direction $\alpha$). Expand the
+The nuclei sit near equilibrium positions $\mathbf{R}_I^0$ and vibrate about
+them. Write the instantaneous position of nucleus $I$ as its equilibrium position
+plus a small displacement,
+
+$$
+\mathbf{R}_I = \mathbf{R}_I^0 + \mathbf{u}_I,
+$$
+
+with Cartesian components $u_{I\alpha}$ ($\alpha = x,y,z$). Expand the
 Born–Oppenheimer energy — the energy surface DFT gives us — as a Taylor series in
 those displacements:
 
