@@ -170,8 +170,10 @@ You now have the full ground-state + electronic-structure toolkit: SCF,
 plane-wave/pseudopotential and k-point convergence, relaxation, band structures,
 DOS/PDOS, and real-space densities — all on one consistent GaAs example.
 
-**Phase 2 (coming next)** moves to the physics that needs more than a plain
-PBE ground state: exchange–correlation functionals & DFT+U (Chapter 8), spin and
-magnetism (Chapter 9), and lattice dynamics via DFPT — phonons and the LO–TO
+**Phase 2** moves to the physics that needs more than a plain PBE ground state:
+[exchange–correlation functionals & DFT+U](./08-functionals.md) (Chapter 8), spin
+and magnetism (Chapter 9), and lattice dynamics via DFPT — phonons and the LO–TO
 splitting this chapter's bond charge hinted at (Chapters 10–11) — finishing with
 running QE at scale on HPC (Chapter 12).
+
+**Next:** [Chapter 8 — Exchange–correlation functionals & DFT+U](./08-functionals.md).

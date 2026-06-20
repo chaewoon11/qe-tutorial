@@ -1,0 +1,45 @@
+&control
+    calculation = 'scf'
+    prefix      = 'nio'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0
+    celldm(1) = 7.881
+    nat = 4
+    ntyp = 3
+    ecutwfc = 75.0
+    ecutrho = 600.0
+    nbnd = 30
+    nspin = 2
+    starting_magnetization(1) =  0.6      ! Ni1 up
+    starting_magnetization(2) = -0.6      ! Ni2 down
+    starting_magnetization(3) =  0.0      ! O
+    occupations = 'smearing'
+    smearing = 'mv'
+    degauss = 0.01
+/
+&electrons
+    mixing_beta = 0.3
+    conv_thr = 1.0d-8
+/
+ATOMIC_SPECIES
+  Ni1 58.6934 Ni.pbe-spn-kjpaw_psl.1.0.0.UPF
+  Ni2 58.6934 Ni.pbe-spn-kjpaw_psl.1.0.0.UPF
+  O   15.9994 O.pbe-n-kjpaw_psl.1.0.0.UPF
+CELL_PARAMETERS alat
+  0.50 0.50 1.00
+  0.50 1.00 0.50
+  1.00 0.50 0.50
+ATOMIC_POSITIONS crystal
+  Ni1 0.00 0.00 0.00
+  Ni2 0.50 0.50 0.50
+  O   0.25 0.25 0.25
+  O   0.75 0.75 0.75
+K_POINTS automatic
+  4 4 4 0 0 0
+HUBBARD {atomic}
+U Ni1-3d 0.0001
+U Ni2-3d 0.0001
