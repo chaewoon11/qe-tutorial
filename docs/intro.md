@@ -43,7 +43,10 @@ functionals, magnetism, lattice dynamics, and HPC. An **Advanced — 2D material
 track then applies it all to 2D materials: building and relaxing a graphene cell
 ([A1](advanced/2d-cell.md)), its Dirac bands ([A2](advanced/dirac-bands.md)), and
 **bilayer hBN** — van der Waals binding, a wide gap, and 2D LO–TO phonons
-([A3](advanced/bilayer-hbn.md)).
+([A3](advanced/bilayer-hbn.md)). Finally, the **Mini-projects** put the whole
+toolchain to work on a real research problem: **charge density waves in monolayer
+NbSe₂** ([MP1](miniprojects/nbse2-cdw.md)), where an imaginary phonon mode reveals
+a lattice instability that condenses into a 3×3 superstructure.
 
 :::info Status
 **All 13 chapters (0–12) are complete and runnable** — the full curriculum, from

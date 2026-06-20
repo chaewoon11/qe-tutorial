@@ -1,0 +1,11 @@
+phonon dispersion of undistorted 1H-NbSe2 (metal, no LO-TO)
+&inputph
+  prefix   = 'nbse2'
+  outdir   = './out'
+  fildyn   = 'nbse2.dyn'
+  fildvscf = 'dvscf'
+  ldisp    = .true.
+  nmix_ph  = 12
+  tr2_ph   = 1.0d-16
+  nq1 = 6, nq2 = 6, nq3 = 1
+/

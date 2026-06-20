@@ -1,0 +1,35 @@
+&control
+    calculation = 'scf'
+    prefix      = 'nbse2'
+    outdir      = './out'
+    pseudo_dir  = '../../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav           = 0
+    nat             = 3
+    ntyp            = 2
+    ecutwfc         = 60.0
+    ecutrho         = 480.0
+    assume_isolated = '2D'
+    occupations     = 'smearing'
+    smearing        = 'mv'
+    degauss         = 0.01
+/
+&electrons
+    conv_thr    = 1.0d-16
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Nb 92.90638 Nb.pbe-spn-kjpaw_psl.1.0.0.UPF
+  Se 78.971   Se.pbe-n-kjpaw_psl.1.0.0.UPF
+CELL_PARAMETERS angstrom
+   3.473586449   0.000000000   0.000000000
+  -1.736793225   3.008089368   0.000000000
+   0.000000000   0.000000000  22.000000000
+ATOMIC_POSITIONS crystal
+  Nb  0.333333333  0.666666667   0.000000000
+  Se  0.666666667  0.333333333   0.076425751
+  Se  0.666666667  0.333333333  -0.076425751
+K_POINTS automatic
+  18 18 1 0 0 0

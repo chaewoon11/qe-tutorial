@@ -40,6 +40,14 @@ const sidebars = {
         'advanced/bilayer-hbn',
       ],
     },
+    {
+      type: 'category',
+      label: 'Mini-projects',
+      collapsed: false,
+      items: [
+        'miniprojects/nbse2-cdw',
+      ],
+    },
   ],
 };
 
