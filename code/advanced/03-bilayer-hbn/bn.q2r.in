@@ -1,0 +1,6 @@
+&input
+  fildyn  = 'bn.dyn'
+  flfrc   = 'bn.fc'
+  zasr    = 'simple'
+  loto_2d = .true.            ! 2D LO-TO (in-plane long-range dipole, 2D form)
+/

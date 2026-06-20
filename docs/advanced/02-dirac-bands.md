@@ -198,20 +198,12 @@ wrong for a hexagonal cell.
 
 ---
 
-## Where the 2D track stops
+Everything else for a 2D material transfers directly from the core tutorial run
+on this cell — DOS/PDOS from [Chapter 6](../chapters/dos.md), phonons from
+[Chapters 10–11](../chapters/phonon-dispersion.md). The next chapter shows that in
+action on a *polar* 2D crystal, where new physics (van der Waals binding, a real
+gap, and a 2D LO–TO splitting) appears that graphene can't show.
 
-That completes the **2D-materials essentials**: how to build and converge a 2D
-cell (vacuum + `assume_isolated='2D'`, 2D BZ, smearing — A1), relax it the proper
-way, and compute its band structure (A2). Everything else transfers directly from
-the core tutorial run on this 2D cell:
+---
 
-- **DOS / PDOS** → core [Chapter 6](../chapters/dos.md) (dense `N×N×1` nscf +
-  `dos.x`/`projwfc.x`).
-- **Phonons** → core [Chapter 10](../chapters/phonons-gamma.md) /
-  [Chapter 11](../chapters/phonon-dispersion.md) (DFPT, `q2r.x`, `matdyn.x`), with
-  the 2D cell and — for a **polar** 2D material such as hBN or MoS₂ — the
-  `loto_2d` flag for the 2D LO–TO correction. (Graphene is non-polar, so there is
-  no LO–TO splitting to compute.)
-
-In other words, once you can set up and relax a 2D cell, the rest of QE works on
-it unchanged.
+**Next:** [A3 — Bilayer hBN: vdW, bands & 2D phonons](./03-bilayer-hbn.md).

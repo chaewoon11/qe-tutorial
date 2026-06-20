@@ -1,0 +1,11 @@
+&inputph
+  prefix   = 'bn'
+  outdir   = './out'
+  fildyn   = 'bn.dyn'
+  fildvscf = 'dvscf'
+  ldisp    = .true.
+  epsil    = .true.            ! polar -> Born charges (for 2D LO-TO)
+  nmix_ph  = 12
+  tr2_ph   = 1.0d-18
+  nq1 = 12, nq2 = 12, nq3 = 1
+/

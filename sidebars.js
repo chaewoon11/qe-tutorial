@@ -37,6 +37,7 @@ const sidebars = {
       items: [
         'advanced/2d-cell',
         'advanced/dirac-bands',
+        'advanced/bilayer-hbn',
       ],
     },
   ],

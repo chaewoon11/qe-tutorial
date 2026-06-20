@@ -1,0 +1,37 @@
+&control
+    calculation     = 'scf'
+    prefix          = 'bn'
+    pseudo_dir      = '../../pseudos'
+    outdir          = './out'
+    verbosity       = 'low'
+    wf_collect      = .true.
+/
+&system
+    ibrav           = 0
+    nat             = 4
+    ntyp            = 2
+    ecutwfc         = 98
+    vdw_corr        = 'dft-d3'        ! van der Waals (Grimme D3) — needed for layer binding
+    dftd3_threebody = .false.         ! required when followed by DFPT
+    assume_isolated = '2D'
+    occupations     = 'fixed'
+/
+&electrons
+    diagonalization = 'david'
+    mixing_beta     = 0.7
+    conv_thr        = 1.0d-12
+/
+ATOMIC_SPECIES
+  B  10.811   B.pbe-n-kjpaw_psl.1.0.0.UPF
+  N  14.0067  N.pbe-n-kjpaw_psl.1.0.0.UPF
+CELL_PARAMETERS angstrom
+   2.508918318   0.000000000   0.000000000
+  -1.254459159   2.172786999   0.000000000
+   0.000000000   0.000000000  45.000000000
+ATOMIC_POSITIONS crystal
+  B   0.3333333333   0.6666666667  -0.0380964600
+  N   0.6666666667   0.3333333333  -0.0381138600
+  N   0.3333333333   0.6666666667   0.0381138600
+  B   0.6666666667   0.3333333333   0.0380964600
+K_POINTS automatic
+  12 12 1 0 0 0

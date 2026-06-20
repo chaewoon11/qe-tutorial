@@ -40,8 +40,10 @@ via DFPT — and run them at scale on an HPC cluster.
 
 Chapters 0–7 cover the ground state and electronic structure; 8–12 cover
 functionals, magnetism, lattice dynamics, and HPC. An **Advanced — 2D materials**
-track then applies it all to monolayer **graphene**: building and relaxing a 2D
-cell ([A1](advanced/2d-cell.md)) and its Dirac bands ([A2](advanced/dirac-bands.md)).
+track then applies it all to 2D materials: building and relaxing a graphene cell
+([A1](advanced/2d-cell.md)), its Dirac bands ([A2](advanced/dirac-bands.md)), and
+**bilayer hBN** — van der Waals binding, a wide gap, and 2D LO–TO phonons
+([A3](advanced/bilayer-hbn.md)).
 
 :::info Status
 **All 13 chapters (0–12) are complete and runnable** — the full curriculum, from
