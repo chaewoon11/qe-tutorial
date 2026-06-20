@@ -269,5 +269,5 @@ sheet. Always centre a 2D slab at $z=0$.
 
 ---
 
-**Next:** A2 — Dirac bands of graphene *(coming soon)*: the band structure along
-Γ–M–K–Γ and the Dirac cone at K.
+**Next:** [A2 — Dirac bands of graphene](./02-dirac-bands.md): the band structure
+along Γ–M–K–Γ and the Dirac cone at K.

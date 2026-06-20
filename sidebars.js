@@ -36,6 +36,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'advanced/2d-cell',
+        'advanced/dirac-bands',
       ],
     },
   ],
