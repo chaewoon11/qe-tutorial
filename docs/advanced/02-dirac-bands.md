@@ -198,5 +198,20 @@ wrong for a hexagonal cell.
 
 ---
 
-**Next:** A3 — 2D phonons of graphene *(coming soon)*: the flexural (ZA) mode and
-Kohn anomalies, on the relaxed cell.
+## Where the 2D track stops
+
+That completes the **2D-materials essentials**: how to build and converge a 2D
+cell (vacuum + `assume_isolated='2D'`, 2D BZ, smearing — A1), relax it the proper
+way, and compute its band structure (A2). Everything else transfers directly from
+the core tutorial run on this 2D cell:
+
+- **DOS / PDOS** → core [Chapter 6](../chapters/dos.md) (dense `N×N×1` nscf +
+  `dos.x`/`projwfc.x`).
+- **Phonons** → core [Chapter 10](../chapters/phonons-gamma.md) /
+  [Chapter 11](../chapters/phonon-dispersion.md) (DFPT, `q2r.x`, `matdyn.x`), with
+  the 2D cell and — for a **polar** 2D material such as hBN or MoS₂ — the
+  `loto_2d` flag for the 2D LO–TO correction. (Graphene is non-polar, so there is
+  no LO–TO splitting to compute.)
+
+In other words, once you can set up and relax a 2D cell, the rest of QE works on
+it unchanged.

@@ -39,7 +39,9 @@ via DFPT — and run them at scale on an HPC cluster.
 | 12 | Running QE at scale | parallelization levels, restarts, HPC job scripts | cluster submission |
 
 Chapters 0–7 cover the ground state and electronic structure; 8–12 cover
-functionals, magnetism, lattice dynamics, and HPC.
+functionals, magnetism, lattice dynamics, and HPC. An **Advanced — 2D materials**
+track then applies it all to monolayer **graphene**: building and relaxing a 2D
+cell ([A1](advanced/2d-cell.md)) and its Dirac bands ([A2](advanced/dirac-bands.md)).
 
 :::info Status
 **All 13 chapters (0–12) are complete and runnable** — the full curriculum, from
