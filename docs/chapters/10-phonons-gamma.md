@@ -17,27 +17,63 @@ LO–TO splitting), and runs the job on an HPC cluster.
 
 ---
 
-## 1. Phonons as second derivatives of the energy
+## 1. From the harmonic approximation to the dynamical matrix
 
-A phonon frequency is set by how the energy curves when atoms are displaced. For
-a displacement of atom $I$ (direction $\alpha$) the **force constants** are the
-second derivatives of the Born–Oppenheimer total energy,
-
-$$
-C_{I\alpha,J\beta} = \frac{\partial^2 E}{\partial u_{I\alpha}\,\partial u_{J\beta}},
-$$
-
-and the **dynamical matrix** is their mass-weighted Fourier transform at
-wavevector $\mathbf{q}$,
+The nuclei sit near equilibrium positions $\mathbf{R}_I^0$ and vibrate by small
+displacements $u_{I\alpha}$ (atom $I$, Cartesian direction $\alpha$). Expand the
+Born–Oppenheimer energy — the energy surface DFT gives us — as a Taylor series in
+those displacements:
 
 $$
+E(\{\mathbf{u}\}) = E_0
++ \sum_{I\alpha}\left.\frac{\partial E}{\partial u_{I\alpha}}\right|_0 u_{I\alpha}
++ \frac12\sum_{I\alpha,J\beta} C_{I\alpha,J\beta}\,u_{I\alpha}u_{J\beta}
++ \mathcal{O}(u^3).
+$$
+
+At equilibrium the forces vanish, $\partial E/\partial u_{I\alpha}|_0 = -F_{I\alpha} = 0$,
+so the **linear term drops out**. The **harmonic approximation** keeps only the
+quadratic term, whose coefficients are the **interatomic force constants**
+
+$$
+C_{I\alpha,J\beta} = \left.\frac{\partial^2 E}{\partial u_{I\alpha}\,\partial u_{J\beta}}\right|_0 .
+$$
+
+The restoring force is then linear in the displacements (Hooke's law),
+$F_{I\alpha} = -\sum_{J\beta} C_{I\alpha,J\beta}\,u_{J\beta}$, and Newton's
+equations for the nuclei read
+
+$$
+M_I\,\ddot{u}_{I\alpha} = -\sum_{J\beta} C_{I\alpha,J\beta}\,u_{J\beta}.
+$$
+
+In a periodic crystal we seek **normal-mode (phonon) solutions** of Bloch form —
+a wave of wavevector $\mathbf{q}$ and frequency $\omega$,
+
+$$
+u_{I\alpha}(t) = \frac{1}{\sqrt{M_I}}\,e_{I\alpha}(\mathbf{q})\,
+e^{i(\mathbf{q}\cdot\mathbf{R}_I^0 - \omega t)} .
+$$
+
+Substituting into Newton's equations turns them into an **eigenvalue problem**,
+
+$$
+\omega^2(\mathbf{q})\,\mathbf{e}(\mathbf{q}) = D(\mathbf{q})\,\mathbf{e}(\mathbf{q}),
+\qquad
 D_{I\alpha,J\beta}(\mathbf{q}) = \frac{1}{\sqrt{M_I M_J}}
-\sum_{\mathbf{R}} C_{I\alpha,J\beta}(\mathbf{R})\,e^{i\mathbf{q}\cdot\mathbf{R}} .
+\sum_{\mathbf{R}} C_{I\alpha,J\beta}(\mathbf{R})\,e^{i\mathbf{q}\cdot\mathbf{R}},
 $$
 
-Diagonalizing $D(\mathbf{q})$ gives the squared frequencies $\omega_{\mathbf{q}\nu}^2$
-(eigenvalues) and the polarization vectors (eigenvectors). A 2-atom cell like
-GaAs has $3\times2 = 6$ modes at each $\mathbf{q}$: 3 acoustic + 3 optical.
+where $D(\mathbf{q})$ is the **dynamical matrix** (the mass-weighted Fourier
+transform of the force constants). Diagonalizing this $3N_\text{at}\times3N_\text{at}$
+Hermitian matrix gives the squared frequencies $\omega_{\mathbf{q}\nu}^2$
+(eigenvalues) and the polarization vectors $\mathbf{e}_{\mathbf{q}\nu}$
+(eigenvectors). A 2-atom cell like GaAs has $3\times2 = 6$ branches at each
+$\mathbf{q}$: 3 acoustic + 3 optical.
+
+So the *entire* harmonic phonon problem reduces to one ingredient — the force
+constants $C = \partial^2 E/\partial u\,\partial u$. The rest of this chapter is
+how DFPT computes them.
 
 ## 2. What the second derivative actually requires
 
