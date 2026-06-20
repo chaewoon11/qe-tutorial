@@ -13,12 +13,6 @@ Every chapter pairs the **theory** with a **hands-on calculation** you actually
 run — theory → input-file dissection → run command → expected output → result
 analysis → exercises.
 
-:::note Who this is for
-Graduate students and researchers starting with plane-wave DFT who want to
-understand *why* each input flag is there, not just copy-paste. Some
-solid-state physics and command-line familiarity is assumed.
-:::
-
 ## What you'll learn
 
 By the end you can independently run and interpret: ground-state SCF,
