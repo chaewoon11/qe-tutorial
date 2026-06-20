@@ -16,7 +16,7 @@
     assume_isolated = '2D'
     occupations     = 'smearing'
     smearing        = 'mv'
-    degauss         = 0.02
+    degauss         = 0.01
 /
 &electrons
     conv_thr    = 1.0d-18
@@ -41,4 +41,4 @@ ATOMIC_POSITIONS crystal
   Se  0.666666667  0.333333333   0.076136364
   Se  0.666666667  0.333333333  -0.076136364
 K_POINTS automatic
-  16 16 1 0 0 0
+  12 12 1 0 0 0

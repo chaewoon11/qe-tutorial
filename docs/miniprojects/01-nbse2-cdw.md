@@ -248,7 +248,7 @@ That is why the phonon **q**-grid below is **6×6×1**: the point $(\tfrac13,0)$
 $(\tfrac{2}{6},0)$, an *exact* grid point, so we sample the CDW wavevector without
 interpolation.
 
-The relaxed cell (Stage 0 below) comes out at **a₀ = 3.4736 Å**, with the Se
+The relaxed cell (Stage 0 below) comes out at **a₀ = 3.473 Å**, with the Se
 planes at **z = ±1.681 Å** — in line with PBE values for the monolayer.
 
 ---
@@ -263,13 +263,23 @@ of *converge → relax → reuse*:
 | 0 | relax the undistorted 1H cell | `pw.x` vc-relax | light |
 | 1 | phonon dispersion → find the soft mode | `pw.x`→`ph.x`→`q2r.x`→`matdyn.x` | **heavy** |
 | 2 | freeze the soft mode into a 3×3 supercell, relax | `pw.x` relax | medium |
-| 3 | visualize the charge modulation | `pp.x` (+ DOS) | light |
+| 3 | DOS pseudogap + charge modulation | `dos.x`, `pp.x` | light |
 
 ### Stage 0 — relax the high-symmetry cell
 
 A metal, so we use Marzari–Vanderbilt cold smearing; `cell_dofree='2Dxy'` relaxes
 the in-plane lattice constant while the vacuum spacing is held fixed, and
 `assume_isolated='2D'` removes the spurious field between periodic images.
+
+:::warning Relax at the production settings
+The relaxation uses the **same k-grid and `degauss`** as the phonon step that
+follows (**12×12×1**, `degauss = 0.01`). This is not optional housekeeping: the
+equilibrium lattice constant depends weakly on **k** and `degauss`, so relaxing at
+*looser* settings and then running phonons at *tighter* ones leaves the cell
+slightly **off-equilibrium**, and the residual stress leaks straight into the
+dynamical matrix. Converge → relax → reuse, all at one consistent set of
+parameters.
+:::
 
 ```fortran title="code/advanced/04-nbse2-cdw/inputs/nbse2.vc-relax.in"
 &control
@@ -290,7 +300,7 @@ the in-plane lattice constant while the vacuum spacing is held fixed, and
     assume_isolated = '2D'
     occupations     = 'smearing'
     smearing        = 'mv'
-    degauss         = 0.02
+    degauss         = 0.01
 /
 &electrons
     conv_thr    = 1.0d-18
@@ -315,14 +325,15 @@ ATOMIC_POSITIONS crystal
   Se  0.666666667  0.333333333   0.076136364
   Se  0.666666667  0.333333333  -0.076136364
 K_POINTS automatic
-  16 16 1 0 0 0
+  12 12 1 0 0 0
 ```
 
 ### Stage 1 — phonon dispersion of the undistorted cell
 
 This is the heart of the project. We run a self-consistent calculation on the
-relaxed cell with a **dense 18×18×1 k-grid** (a metal needs it), then a full DFPT
-phonon calculation on a **6×6×1 q-grid**, interpolate the force constants with
+relaxed cell with a **12×12×1 k-grid** — exactly twice the 6×6×1 phonon **q**-grid,
+so every $\mathbf k+\mathbf q$ lands back on the **k**-grid — then a full DFPT
+phonon calculation on that **6×6×1 q-grid**, interpolate the force constants with
 `q2r.x`, and plot the dispersion with `matdyn.x` along Γ–M–K–Γ. NbSe₂ is a
 **metal**, so there is *no* LO–TO splitting and *no* `epsil` — unlike the polar
 insulators in the core chapters.
@@ -362,7 +373,7 @@ ATOMIC_POSITIONS crystal
   Se  0.666666667  0.333333333   0.076425751
   Se  0.666666667  0.333333333  -0.076425751
 K_POINTS automatic
-  18 18 1 0 0 0
+  12 12 1 0 0 0
 ```
 
 ```fortran title="code/advanced/04-nbse2-cdw/inputs/nbse2.ph.in"
@@ -426,22 +437,61 @@ $$
 
 the **condensation energy** per formula unit.
 
+:::tip Two registries: hollow- vs chalcogen-centred
+The 3×3 distortion can lock in with two inequivalent registries — **hollow-centred
+(HC)** or **chalcogen-centred (CC)**, named by what sits at the centre of the Nb
+triangular cluster. They are genuinely different local minima with slightly
+different energies (in 2H-NbSe₂ the two even appear on different van der Waals
+layers — see [Sanna *et al.*, *npj Quantum Mater.* **7**, 6 (2022)](https://www.nature.com/articles/s41535-021-00412-8)).
+The honest recipe is therefore to **relax *both* registries** and keep the lower
+$\Delta E_\text{CDW}$ as the ground state — not to assume the first pattern you
+freeze in is the winner.
+:::
+
 :::info Result to follow
 The condensation energy $\Delta E_\text{CDW}$ (meV/formula unit) and the relaxed
 distortion pattern — the characteristic Nb triangular clustering — will be reported
 here once the 3×3 supercell relaxation completes.
 :::
 
-### Stage 3 — see the charge modulation
+### Stage 3 — see the electronic structure change (DOS) and the charge modulation
 
-Finally, `pp.x` on the relaxed 3×3 cell gives the valence charge density; its
-periodic modulation across the supercell **is** the "charge density wave." A DOS
-comparison (undistorted vs distorted) shows the **pseudogap** the distortion opens
-at $E_F$ — the energy-lowering mechanism from §1, now in a real 2D crystal.
+This is where we answer "**does the band structure actually change?**" — and the
+honest answer carries the key physics. Unlike the 1D toy model of §1, which turned
+a metal into a full-gap **insulator**, monolayer NbSe₂'s CDW is a **weak, partial**
+transition: only the **nested portions of the Fermi surface gap out**, while the
+rest stays metallic (which is why NbSe₂ remains a metal — and superconducts at lower
+temperature). So the electronic signature is **not** a clean gap but a **pseudogap**
+— a partial dip in the density of states right at $E_F$.
+
+The clearest way to see it is a **DOS overlay**: run `dos.x` on the undistorted 1×1
+cell and on the relaxed 3×3 CDW cell (both unfolded to states-per-formula-unit) and
+compare near $E_F$. The 27-atom band structure is too folded to read directly, but
+the DOS dip is unambiguous.
+
+```bash
+# undistorted reference and CDW cell, each: nscf (dense k) -> dos.x
+pw.x  < nbse2.nscf.in    > nbse2.nscf.out
+dos.x < nbse2.dos.in     > nbse2.dos.out
+```
+
+Then `pp.x` on the relaxed 3×3 cell gives the valence charge density, whose periodic
+modulation across the supercell — the Nb triangular clustering — **is** the charge
+density wave you can plot in real space.
+
+:::note Where this leads — superconductivity
+The pseudogap is the Fermi-surface reconstruction that, at lower temperature,
+controls the **anisotropy of the superconducting gap** in NbSe₂
+([Sanna *et al.* 2022](https://www.nature.com/articles/s41535-021-00412-8), on the
+2H bulk). That calculation needs superconducting DFT / anisotropic Eliashberg —
+beyond `pw.x`/`ph.x` and out of scope here — but it consumes exactly the **pre-ASR
+phonons and electron–phonon coupling** we computed in Stage 1. Good CDW phonons in,
+correct $T_c$ physics out.
+:::
 
 :::info Result to follow
-The charge-density figure across the 3×3 supercell and the DOS comparison
-(undistorted vs distorted, showing the pseudogap at $E_F$) will be added here.
+The DOS overlay (undistorted vs 3×3 CDW, pseudogap at $E_F$) and the real-space
+charge-modulation figure will be added here once the supercell relaxation completes.
 :::
 
 ---
