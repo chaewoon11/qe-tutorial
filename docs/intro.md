@@ -48,9 +48,9 @@ Chapters 0–7 cover the ground state and electronic structure; 8–12 cover
 functionals, magnetism, lattice dynamics, and HPC.
 
 :::info Status
-This site is under active development. **Chapters 0–9** are complete and
-runnable (all of Phase 1, plus functionals/DFT+U and magnetism); the rest of
-Phase 2 (DFPT phonons, HPC) is being written.
+This site is under active development. **Chapters 0–10** are complete and
+runnable (all of Phase 1, plus functionals/DFT+U, magnetism, and DFPT Γ
+phonons); the rest of Phase 2 (phonon dispersion, HPC) is being written.
 :::
 
 ## How to use this site

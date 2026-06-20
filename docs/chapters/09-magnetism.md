@@ -214,5 +214,5 @@ nonzero anisotropy.
 
 ---
 
-**Next:** Chapter 10 — DFPT & Γ phonons *(coming soon)*: lattice dynamics from
-density-functional perturbation theory, starting at the zone centre.
+**Next:** [Chapter 10 — DFPT & Γ phonons](./10-phonons-gamma.md): lattice
+dynamics from density-functional perturbation theory, starting at the zone centre.

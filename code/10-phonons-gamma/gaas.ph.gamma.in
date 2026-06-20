@@ -1,0 +1,11 @@
+GaAs Gamma-point phonons (LO-TO via Born effective charges)
+&inputph
+    prefix   = 'gaas'
+    outdir   = './out'
+    fildyn   = 'gaas.dyn'
+    tr2_ph   = 1.0d-16
+    nmix_ph  = 12
+    epsil    = .true.
+    trans    = .true.
+/
+0.0 0.0 0.0

@@ -25,6 +25,7 @@ const sidebars = {
         'chapters/charge',
         'chapters/functionals',
         'chapters/magnetism',
+        'chapters/phonons-gamma',
       ],
     },
   ],
