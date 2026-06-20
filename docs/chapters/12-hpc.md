@@ -204,6 +204,6 @@ over q/irreps if available.
 You've finished the tutorial. From a first SCF on GaAs to its band structure,
 density of states, charge density, magnetism, and full phonon dispersion — with
 the convergence discipline and HPC workflow to do it for real. The
-[introduction](../intro) has the full chapter map; the runnable inputs live in
+[introduction](../intro.md) has the full chapter map; the runnable inputs live in
 [`code/`](https://github.com/chaewoon11/qe-tutorial/tree/master/code). Go compute
 something.
