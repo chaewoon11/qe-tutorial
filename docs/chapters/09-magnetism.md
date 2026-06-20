@@ -100,7 +100,42 @@ K_POINTS automatic
   12 12 12 0 0 0
 ```
 
-Run it, and run a nonmagnetic (`nspin = 1`) version for comparison:
+Run it, and run a nonmagnetic (`nspin = 1`) version for comparison — the
+nonmagnetic input is the same cell with `nspin = 1` and no
+`starting_magnetization`:
+
+```fortran title="code/09-magnetism/fe.nm.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'fe_nm'
+    outdir      = './out_nm'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 3
+    celldm(1) = 5.4235
+    nat = 1
+    ntyp = 1
+    ecutwfc = 80.0
+    ecutrho = 640.0
+    nbnd = 16
+    nspin = 1
+    occupations = 'smearing'
+    smearing = 'mv'
+    degauss = 0.02
+/
+&electrons
+    mixing_beta = 0.3
+    conv_thr = 1.0d-9
+/
+ATOMIC_SPECIES
+  Fe 55.845 Fe.pbe-spn-kjpaw_psl.1.0.0.UPF
+ATOMIC_POSITIONS crystal
+  Fe 0.0 0.0 0.0
+K_POINTS automatic
+  12 12 12 0 0 0
+```
 
 ```bash
 cd code/09-magnetism
@@ -126,7 +161,52 @@ little extra from the spin density between the atomic spheres.)
 ## 3. Spin-resolved density of states
 
 The mechanism is clearest in the DOS. With `nspin = 2`, `dos.x` writes separate
-**majority** (↑) and **minority** (↓) densities. Plotting them back-to-back:
+**majority** (↑) and **minority** (↓) densities. A dense, spin-polarized `nscf`
+(tetrahedra) feeds `dos.x`:
+
+```fortran title="code/09-magnetism/fe.nscf.in"
+&control
+    calculation = 'nscf'
+    prefix      = 'fe'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 3
+    celldm(1) = 5.4235
+    nat = 1
+    ntyp = 1
+    ecutwfc = 80.0
+    ecutrho = 640.0
+    nbnd = 16
+    nspin = 2
+    starting_magnetization(1) = 0.7
+    occupations = 'tetrahedra'
+/
+&electrons
+    conv_thr = 1.0d-9
+/
+ATOMIC_SPECIES
+  Fe 55.845 Fe.pbe-spn-kjpaw_psl.1.0.0.UPF
+ATOMIC_POSITIONS crystal
+  Fe 0.0 0.0 0.0
+K_POINTS automatic
+  16 16 16 0 0 0
+```
+
+```fortran title="code/09-magnetism/fe.dos.in"
+&dos
+    prefix = 'fe'
+    outdir = './out'
+    fildos = 'fe.dos'
+    Emin = 8.0
+    Emax = 25.0
+    DeltaE = 0.02
+/
+```
+
+Plotting the two channels back-to-back:
 
 ![bcc Fe spin-resolved DOS](/img/09-fe-dos.png)
 

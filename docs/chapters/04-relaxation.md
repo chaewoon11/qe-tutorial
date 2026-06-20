@@ -109,6 +109,41 @@ The most transparent way to *see* the equilibrium structure is to scan it: run
 `scf` at a series of lattice constants and plot the total energy. Each point is a
 fixed-geometry calculation like Chapter 0, just with a different `celldm(1)`:
 
+```fortran title="code/04-relaxation/gaas.scf.in"
+&control
+    calculation   = 'scf'
+    prefix        = 'gaas'
+    outdir        = './out'
+    pseudo_dir    = '../pseudos'
+    verbosity     = 'high'
+/
+&system
+    ibrav         = 0
+    celldm(1)     = 10.6829
+    nat           = 2
+    ntyp          = 2
+    ecutwfc       = 50.0
+    ecutrho       = 400.0
+    occupations   = 'fixed'
+/
+&electrons
+    conv_thr      = 1.0d-12
+    mixing_beta   = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+K_POINTS automatic
+  8 8 8 0 0 0
+```
+
 ```bash
 cd code/04-relaxation
 for a in 10.20 10.40 10.60 10.70 10.80 10.90 11.00 11.20; do

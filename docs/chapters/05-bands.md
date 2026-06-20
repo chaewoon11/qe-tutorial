@@ -90,6 +90,39 @@ gap you must also compute empty (conduction) bands.
 
 ## 3. The three-step workflow
 
+The band run reuses the same SCF input as the earlier chapters, and `bands.x`
+takes a short post-processing namelist that collects the eigenvalues:
+
+```fortran title="code/05-bands/gaas.scf.in"
+&control
+ calculation='scf', prefix='gaas', outdir='./out', pseudo_dir='../pseudos', verbosity='high'
+/
+&system
+ ibrav=0, celldm(1)=10.6829, nat=2, ntyp=2, ecutwfc=50.0, ecutrho=400.0, occupations='fixed'
+/
+&electrons
+ conv_thr=1.0d-10, mixing_beta=0.7
+/
+ATOMIC_SPECIES
+ Ga 69.723  Ga.pbe-dn-kjpaw_psl.0.2.upf
+ As 74.9216 As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+ -0.5 0.0 0.5
+  0.0 0.5 0.5
+ -0.5 0.5 0.0
+ATOMIC_POSITIONS alat
+ Ga 0.0 0.0 0.0
+ As 0.25 0.25 0.25
+K_POINTS automatic
+ 8 8 8 0 0 0
+```
+
+```fortran title="code/05-bands/gaas.bands.pp.in"
+&bands
+ prefix='gaas', outdir='./out', filband='gaas.bands.dat'
+/
+```
+
 ```bash
 cd code/05-bands
 pw.x   < gaas.scf.in      > scf.out        # 1. self-consistent density
@@ -145,6 +178,12 @@ We can go further and colour each band by *what orbital it is made of*. Running
 per-k-point data along the path) projects every state onto atomic orbitals; a
 **fatband** plot then draws each band point with a size proportional to a chosen
 orbital's weight $|\langle \phi_\text{orb} | \psi_{n\mathbf{k}}\rangle|^2$:
+
+```fortran title="code/05-bands/gaas.fatproj.in"
+&projwfc
+ prefix='gaas', outdir='./out', filproj='gaas.fat', lsym=.false.
+/
+```
 
 ```bash
 cd code/05-bands

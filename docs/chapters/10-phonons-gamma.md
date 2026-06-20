@@ -199,7 +199,42 @@ are far more sensitive, so we use **`ecutwfc = 70`, `ecutrho = 560`, a 12×12×1
 k-grid, and `conv_thr = 1e-20`** (we'll justify those numbers in §3 with the
 acoustic modes as the convergence gauge). This is the first **genuinely
 expensive** step in the tutorial, so we ran it on **Nurion's `debug` queue**
-(KNL) rather than a workstation:
+(KNL) rather than a workstation. The SCF input with those tightened settings:
+
+```fortran title="code/10-phonons-gamma/gaas.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'gaas'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0
+    celldm(1) = 10.6829
+    nat = 2
+    ntyp = 2
+    ecutwfc = 70.0
+    ecutrho = 560.0
+    occupations = 'fixed'
+/
+&electrons
+    conv_thr = 1.0d-20
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+K_POINTS automatic
+  12 12 12 0 0 0
+```
 
 ```bash
 # in the PBS job (debug queue, 1 KNL node):

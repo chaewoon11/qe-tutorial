@@ -72,6 +72,70 @@ Gaussian `.cube`.
 
 ## 3. The workflow
 
+The chain is a standard GaAs SCF followed by two `pp.x` runs — one for the 2D
+slice, one for the full 3D grid:
+
+```fortran title="code/07-charge/gaas.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'gaas'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0, celldm(1) = 10.6829, nat = 2, ntyp = 2
+    ecutwfc = 50.0, ecutrho = 400.0, occupations = 'fixed'
+/
+&electrons
+    conv_thr = 1.0d-10, mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+K_POINTS automatic
+  8 8 8 0 0 0
+```
+
+```fortran title="code/07-charge/gaas.pp_110.in"
+&inputpp
+    prefix   = 'gaas'
+    outdir   = './out'
+    plot_num = 0
+    filplot  = 'gaas.charge'
+/
+&plot
+    nfile = 1, filepp(1) = 'gaas.charge', weight(1) = 1.0
+    iflag = 2, output_format = 7
+    fileout = 'gaas.rho_110.dat'
+    e1(1)=1.0, e1(2)=1.0, e1(3)=0.0
+    e2(1)=0.0, e2(2)=0.0, e2(3)=1.0
+    x0(1)=0.0, x0(2)=0.0, x0(3)=0.0
+    nx=180, ny=130
+/
+```
+
+```fortran title="code/07-charge/gaas.pp_xsf.in"
+&inputpp
+    prefix   = 'gaas'
+    outdir   = './out'
+    plot_num = 0
+    filplot  = 'gaas.charge'
+/
+&plot
+    nfile = 1, filepp(1) = 'gaas.charge', weight(1) = 1.0
+    iflag = 3, output_format = 5
+    fileout = 'gaas.rho.xsf'
+/
+```
+
 ```bash
 cd code/07-charge
 pw.x < gaas.scf.in     > scf.out         # self-consistent density

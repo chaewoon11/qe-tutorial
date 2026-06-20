@@ -68,6 +68,41 @@ All of this runs from the converged SCF of Chapter 10 (`ecutwfc=70`,
 `ecutrho=560`, 12×12×12 k, `conv_thr=1e-20`). The DFPT q-grid step is the
 expensive one, so the whole chain ran on **Nurion's `debug` queue**:
 
+```fortran title="code/11-phonon-dispersion/gaas.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'gaas'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0
+    celldm(1) = 10.6829
+    nat = 2
+    ntyp = 2
+    ecutwfc = 70.0
+    ecutrho = 560.0
+    occupations = 'fixed'
+/
+&electrons
+    conv_thr = 1.0d-20
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+K_POINTS automatic
+  12 12 12 0 0 0
+```
+
 ```bash
 pw.x    < gaas.scf.in        > gaas.scf.out        # converged density
 ph.x    < gaas.ph.disp.in    > gaas.ph.disp.out    # DFPT on the 4x4x4 q-grid (the heavy step)
@@ -88,6 +123,42 @@ GaAs phonon dispersion: DFPT on a 4x4x4 q-grid
     nmix_ph  = 12
     epsil    = .true.
     trans    = .true.
+/
+```
+
+```fortran title="code/11-phonon-dispersion/gaas.q2r.in"
+&input
+    fildyn = 'gaas.dyn'
+    flfrc  = 'gaas.fc'
+    zasr   = 'simple'
+/
+```
+
+```fortran title="code/11-phonon-dispersion/gaas.matdyn.in"
+&input
+    flfrc = 'gaas.fc'
+    asr   = 'simple'
+    flfrq = 'gaas.freq'
+    q_in_band_form = .true.
+    q_in_cryst_coord = .false.
+/
+6
+  0.5   0.5   0.5   40
+  0.0   0.0   0.0   40
+  1.0   0.0   0.0   40
+  1.0   0.5   0.0   20
+  0.75  0.75  0.0   40
+  0.0   0.0   0.0    1
+```
+
+```fortran title="code/11-phonon-dispersion/gaas.matdyn.dos.in"
+&input
+    flfrc = 'gaas.fc'
+    asr   = 'simple'
+    dos   = .true.
+    nk1 = 24, nk2 = 24, nk3 = 24
+    fldos = 'gaas.phdos'
+    deltaE = 1.0
 /
 ```
 

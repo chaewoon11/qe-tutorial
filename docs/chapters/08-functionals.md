@@ -47,6 +47,41 @@ with **LDA** pseudopotentials (`Ga.pz-dn` + `As.pz-n`, the PZ/LDA members of the
 same PSlibrary family as our PBE pair) and compare — same cell, cutoffs, and
 k-grid, only the functional changes:
 
+```fortran title="code/08-functionals/gaas.lda.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'gaas_lda'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0
+    celldm(1) = 10.6829
+    nat = 2
+    ntyp = 2
+    ecutwfc = 50.0
+    ecutrho = 400.0
+    occupations = 'fixed'
+/
+&electrons
+    conv_thr = 1.0d-10
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pz-dn-kjpaw_psl.0.2.UPF
+  As  74.9216  As.pz-n-kjpaw_psl.0.2.UPF
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+K_POINTS automatic
+  8 8 8 0 0 0
+```
+
 ```bash
 cd code/08-functionals
 # LDA EOS: loop the LDA scf input over celldm, grep the total energy
@@ -163,7 +198,56 @@ U Ni2-3d 5.0
 ```
 
 Run it twice — once with `U` set to ~0 (plain PBE) and once at `U = 5.0` eV — and
-compare the magnetic moment and the gap:
+compare the magnetic moment and the gap. The near-PBE reference input is
+identical except for the negligible `U` (which makes it effectively plain PBE):
+
+```fortran title="code/08-functionals/nio.pbe.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'nio'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0
+    celldm(1) = 7.881
+    nat = 4
+    ntyp = 3
+    ecutwfc = 75.0
+    ecutrho = 600.0
+    nbnd = 30
+    nspin = 2
+    starting_magnetization(1) =  0.6      ! Ni1 up
+    starting_magnetization(2) = -0.6      ! Ni2 down
+    starting_magnetization(3) =  0.0      ! O
+    occupations = 'smearing'
+    smearing = 'mv'
+    degauss = 0.01
+/
+&electrons
+    mixing_beta = 0.3
+    conv_thr = 1.0d-8
+/
+ATOMIC_SPECIES
+  Ni1 58.6934 Ni.pbe-spn-kjpaw_psl.1.0.0.UPF
+  Ni2 58.6934 Ni.pbe-spn-kjpaw_psl.1.0.0.UPF
+  O   15.9994 O.pbe-n-kjpaw_psl.1.0.0.UPF
+CELL_PARAMETERS alat
+  0.50 0.50 1.00
+  0.50 1.00 0.50
+  1.00 0.50 0.50
+ATOMIC_POSITIONS crystal
+  Ni1 0.00 0.00 0.00
+  Ni2 0.50 0.50 0.50
+  O   0.25 0.25 0.25
+  O   0.75 0.75 0.75
+K_POINTS automatic
+  4 4 4 0 0 0
+HUBBARD {atomic}
+U Ni1-3d 0.0001
+U Ni2-3d 0.0001
+```
 
 ```bash
 cd code/08-functionals

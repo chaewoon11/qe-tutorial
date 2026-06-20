@@ -33,6 +33,39 @@ and a good integration method (**tetrahedra**, which needs no smearing width).
 
 ## 2. Total DOS: scf → dense nscf → `dos.x`
 
+The chain reuses the GaAs SCF, then bins the dense-grid eigenvalues with
+`dos.x`:
+
+```fortran title="code/06-dos/gaas.scf.in"
+&control
+ calculation='scf', prefix='gaas', outdir='./out', pseudo_dir='../pseudos', verbosity='high'
+/
+&system
+ ibrav=0, celldm(1)=10.6829, nat=2, ntyp=2, ecutwfc=50.0, ecutrho=400.0, occupations='fixed'
+/
+&electrons
+ conv_thr=1.0d-10, mixing_beta=0.7
+/
+ATOMIC_SPECIES
+ Ga 69.723  Ga.pbe-dn-kjpaw_psl.0.2.upf
+ As 74.9216 As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+ -0.5 0.0 0.5
+  0.0 0.5 0.5
+ -0.5 0.5 0.0
+ATOMIC_POSITIONS alat
+ Ga 0.0 0.0 0.0
+ As 0.25 0.25 0.25
+K_POINTS automatic
+ 8 8 8 0 0 0
+```
+
+```fortran title="code/06-dos/gaas.dos.in"
+&dos
+ prefix='gaas', outdir='./out', fildos='gaas.dos', Emin=-16.0, Emax=12.0, DeltaE=0.02
+/
+```
+
 ```bash
 cd code/06-dos
 pw.x  < gaas.scf.in   > scf.out      # self-consistent density (8×8×8)
@@ -89,6 +122,12 @@ integrated DOS), and reports the Fermi level in the header.
 
 `projwfc.x` projects each Kohn–Sham state onto the **atomic orbitals** of the
 pseudopotentials (a Löwdin projection) and resolves the DOS by atom and orbital:
+
+```fortran title="code/06-dos/gaas.proj.in"
+&projwfc
+ prefix='gaas', outdir='./out', filpdos='gaas', Emin=-16.0, Emax=12.0, DeltaE=0.02
+/
+```
 
 ```bash
 projwfc.x < gaas.proj.in > proj.out

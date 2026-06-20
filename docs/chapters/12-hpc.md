@@ -69,6 +69,40 @@ work.
 A scaling test on the light GaAs SCF (`code/12-hpc/gaas.scf.in`, 16 irreducible
 k-points), spreading the k-points across cores with `-npool = cores`:
 
+```fortran title="code/12-hpc/gaas.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'gaas'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+/
+&system
+    ibrav = 0
+    celldm(1) = 10.6829
+    nat = 2
+    ntyp = 2
+    ecutwfc = 50.0
+    ecutrho = 400.0
+    occupations = 'fixed'
+/
+&electrons
+    conv_thr = 1.0d-8
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+K_POINTS automatic
+  6 6 6 0 0 0
+```
+
 ```bash
 export OMP_NUM_THREADS=1
 for n in 1 2 4 8 16; do
