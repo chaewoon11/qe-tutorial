@@ -11,10 +11,10 @@ import Admonition from '@theme/Admonition';
 
 This is the first **mini-project**: not a new technique, but a small piece of
 *research* that chains together tools you already have — metals and smearing
-([Ch. 3](../chapters/brillouin-zone.md)), DFPT phonons
-([Ch. 10–11](../chapters/phonon-dispersion.md)), structural relaxation
-([Ch. 4](../chapters/relaxation.md)), and charge densities
-([Ch. 7](../chapters/charge.md)) — to reproduce a real many-body phenomenon: a
+([Ch. 3](../chapters/03-brillouin-zone.md)), DFPT phonons
+([Ch. 10–11](../chapters/11-phonon-dispersion.md)), structural relaxation
+([Ch. 4](../chapters/04-relaxation.md)), and charge densities
+([Ch. 7](../chapters/07-charge.md)) — to reproduce a real many-body phenomenon: a
 **charge density wave (CDW)** in monolayer 1H-NbSe₂.
 
 The guiding idea is the one piece of new physics here:
@@ -35,33 +35,151 @@ awaiting numbers are marked **[result to follow]**.
 
 ---
 
-## 1. The Peierls instability — why a 1D metal cannot stay uniform
+## 1. The Peierls instability — derived from a tight-binding chain
 
-Start with the cleanest case, a **1D chain** of atoms spaced by $a$ with one
-electron per site (half-filled band). The Fermi wavevector is $k_F = \pi/2a$, so
-the band is filled up to $\pm k_F$.
+The cleanest place to *see* a CDW is a 1D chain. We build the band structure of the
+uniform chain, then of the distorted chain in a two-site basis, compare them, and
+identify exactly which phonon drives the transition.
 
-Now impose a small **periodic lattice distortion (PLD)** that doubles the period —
-a displacement wave with wavevector $q = 2k_F = \pi/a$. Doubling the cell folds
-the band at $\pm k_F$, and the electron–ion coupling opens a **gap** $2\Delta$
-right there — exactly at the Fermi level. Every occupied state just below $k_F$ is
-pushed **down** in energy; every empty state just above is pushed up. The
-electrons therefore **lower** their total energy.
+### 1.1 The uniform monatomic chain
 
-How the two energies scale with the distortion amplitude $u$ is the crux:
+Take one orbital per site, lattice constant $a$, on-site energy set to zero, and
+nearest-neighbour hopping $t>0$. In second quantization,
 
 $$
-\Delta E_\text{elastic} \sim +\tfrac12 K u^2 ,
-\qquad
-\Delta E_\text{electronic} \sim -\,u^2 \ln\!\frac{W}{u} ,
+H_0 = -t \sum_{n} \left( c_n^\dagger c_{n+1} + c_{n+1}^\dagger c_n \right) .
 $$
 
-where $K$ is the lattice stiffness and $W$ a bandwidth scale. The elastic cost is
-a plain parabola, but the electronic gain carries a **logarithm** — and for small
-$u$, $u^2\ln(1/u)$ always beats $u^2$. So the total energy is **lowered for any
-nonzero $u$**: the undistorted 1D metal is *never* the ground state at $T=0$. This
-is **Peierls' theorem**. The driving force is that the 1D Fermi "surface" (two
-points $\pm k_F$) is **perfectly nested** by the single vector $2k_F$.
+Bloch states $|k\rangle = \frac{1}{\sqrt N}\sum_n e^{ikna} c_n^\dagger|0\rangle$
+diagonalize it, giving a **single cosine band**
+
+$$
+\varepsilon(k) = -2t\cos(ka), \qquad k \in \left(-\tfrac{\pi}{a}, \tfrac{\pi}{a}\right].
+$$
+
+With **one electron per site** (half-filling) the band is filled up to the Fermi
+points
+
+$$
+k_F = \pm\frac{\pi}{2a}, \qquad \varepsilon_F = -2t\cos\!\left(\tfrac{\pi}{2}\right) = 0 .
+$$
+
+The band crosses $\varepsilon_F$ with finite slope → the uniform chain is a **metal**.
+
+### 1.2 The dimerized (CDW) chain in an A/B basis
+
+Now let the ions dimerize: a displacement wave of wavevector $q = 2k_F = \pi/a$
+pairs the atoms up, **doubling the period** to $a' = 2a$. The unit cell now holds
+two inequivalent sites, **A** and **B**, and the single hopping $t$ splits into two
+alternating values
+
+$$
+t_1 = t + \delta t \;(\text{intra-dimer}), \qquad
+t_2 = t - \delta t \;(\text{inter-dimer}),
+$$
+
+where $\delta t \propto u_0$ is set by the distortion amplitude $u_0$ through the
+electron–phonon coupling. With cell index $m$ and operators $a_m, b_m$,
+
+$$
+H = -\sum_m \left( t_1\, a_m^\dagger b_m + t_2\, b_m^\dagger a_{m+1} + \text{h.c.} \right) .
+$$
+
+Fourier transforming on the doubled cell ($a' = 2a$) gives, in the basis
+$(a_k, b_k)$, a $2\times2$ **Bloch Hamiltonian**
+
+$$
+H(k) = \begin{pmatrix} 0 & h(k) \\ h^*(k) & 0 \end{pmatrix},
+\qquad h(k) = -\left( t_1 + t_2\, e^{-ik a'} \right),
+$$
+
+whose eigenvalues are **two bands**
+
+$$
+\varepsilon_\pm(k) = \pm\,|h(k)| = \pm\sqrt{\,t_1^2 + t_2^2 + 2 t_1 t_2 \cos(k a')\,},
+\qquad k \in \left(-\tfrac{\pi}{a'}, \tfrac{\pi}{a'}\right].
+$$
+
+### 1.3 Comparing the two band structures
+
+The reduced zone now ends at $k = \pi/a' = \pi/2a = k_F$ — the old Fermi point is
+folded onto the **new zone boundary**. Evaluate the gap there:
+
+$$
+\varepsilon_\pm(k_F) = \pm\sqrt{t_1^2 + t_2^2 - 2t_1 t_2} = \pm\,|t_1 - t_2| = \pm\,2\,\delta t .
+$$
+
+- **Undistorted** ($\delta t = 0$, i.e. $t_1=t_2=t$): the two bands touch,
+  $\varepsilon_\pm(k_F)=0$ — this is just the original cosine band folded back into
+  the half-zone, still **gapless at $E_F$** (a metal).
+- **Distorted** ($\delta t \neq 0$): a gap
+
+$$
+2\Delta = 2\,|t_1 - t_2| = 4\,\delta t
+$$
+
+opens **exactly at $k_F$**, right at the Fermi level. The lower band (filled) is
+pushed **down**, the upper band (empty) up → the chain becomes a **band insulator**
+and the occupied electrons **lower their energy**.
+
+![Peierls tight-binding band structures](/img/MP1-peierls-bands.png)
+
+The two panels make the comparison concrete (computed from the formulas above in
+[`notebooks/MP1-peierls.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/MP1-peierls.ipynb)):
+**(a)** the uniform cosine band crosses $E_F$ at $\pm k_F$ — a metal; **(b)** in the
+doubled-cell reduced zone the dashed $\delta t=0$ bands merely *touch* at $k_F$
+(folded metal), while the dimerized bands (solid) open the gap $2\Delta = 4\,\delta t$
+right at the Fermi level.
+
+### 1.4 Why the $2k_F$ phonon: it mixes $-k_F$ and $+k_F$
+
+Where does the off-diagonal $h(k)$ come from physically? The frozen phonon is a
+displacement $u_n = u_0\cos(2k_F\, na)$, which adds a periodic potential
+$\delta V(x)$ whose only Fourier component is at $G = 2k_F$. Its matrix elements in
+the *original* Bloch basis therefore connect states separated by exactly $2k_F$:
+
+$$
+\langle k' | \delta V | k \rangle \neq 0 \iff k' = k \pm 2k_F .
+$$
+
+Set $k = -k_F$. Then $k' = -k_F + 2k_F = +k_F$ — so the perturbation **couples the
+two degenerate Fermi-point states $|{-}k_F\rangle$ and $|{+}k_F\rangle$**, both
+sitting at $\varepsilon_F$. Degenerate perturbation theory reduces to the $2\times2$
+secular problem
+
+$$
+\begin{pmatrix} \varepsilon_F & \Delta \\ \Delta^* & \varepsilon_F \end{pmatrix},
+\qquad \Delta = \langle +k_F|\delta V|-k_F\rangle \propto g\,u_0 ,
+$$
+
+whose eigenvalues are $\varepsilon_F \pm |\Delta|$. **That splitting *is* the gap.**
+This is the whole mechanism in one line: the $q = 2k_F$ phonon is precisely the
+distortion that hybridizes $-k_F \leftrightarrow +k_F$, and because those states are
+degenerate at $E_F$, the mixing is maximally effective — it opens a gap and lowers
+the electronic energy.
+
+### 1.5 The energy balance — Peierls' theorem
+
+Summing the lowered occupied states against the elastic cost of the distortion,
+
+$$
+\Delta E(u_0) = \underbrace{+\tfrac12 K\, u_0^2}_{\text{elastic}}
+              \;\underbrace{-\,\gamma\, u_0^2 \ln\!\frac{W}{u_0}}_{\text{electronic}} ,
+$$
+
+with $K$ the lattice stiffness, $W \sim t$ a bandwidth, and $\gamma>0$. The elastic
+term is a plain parabola, but the electronic gain carries a **logarithm** — a direct
+consequence of the 1D density of states diverging at the band edge / the perfect
+nesting of the two Fermi points by $2k_F$. For small $u_0$, $u_0^2\ln(1/u_0)$ always
+beats $u_0^2$, so
+
+$$
+\Delta E(u_0) < 0 \quad\text{for some } u_0 \neq 0 .
+$$
+
+The uniform 1D metal is therefore **never** the ground state at $T=0$: it
+spontaneously dimerizes. This is **Peierls' theorem**, and the special role of
+$2k_F$ — the vector that nests the Fermi surface — is what we generalize next.
 
 ## 2. From 1D to a real crystal: nesting, susceptibility, and the Kohn anomaly
 
@@ -355,7 +473,7 @@ just acoustic-sum-rule-patched — matters.
 4. **Condensation energy.** From Stage 2, compute $\Delta E_\text{CDW}$ per formula
    unit. Is it of order a few meV? Compare to $k_B T_\text{CDW}$.
 5. **No LO–TO here.** Explain why this calculation needs neither `epsil` nor
-   `loto_2d`, even though the polar 2D crystal in [A3](../advanced/bilayer-hbn.md)
+   `loto_2d`, even though the polar 2D crystal in [A3](../advanced/03-bilayer-hbn.md)
    did. (Hint: metal vs insulator.)
 
 ---

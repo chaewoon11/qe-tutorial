@@ -45,7 +45,7 @@ track then applies it all to 2D materials: building and relaxing a graphene cell
 **bilayer hBN** — van der Waals binding, a wide gap, and 2D LO–TO phonons
 ([A3](advanced/bilayer-hbn.md)). Finally, the **Mini-projects** put the whole
 toolchain to work on a real research problem: **charge density waves in monolayer
-NbSe₂** ([MP1](miniprojects/nbse2-cdw.md)), where an imaginary phonon mode reveals
+NbSe₂** ([MP1](miniprojects/01-nbse2-cdw.md)), where an imaginary phonon mode reveals
 a lattice instability that condenses into a 3×3 superstructure.
 
 :::info Status
