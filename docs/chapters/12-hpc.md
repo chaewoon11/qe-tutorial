@@ -146,10 +146,10 @@ mpirun -np 68 $QE/ph.x -npool 4 < gaas.ph.disp.in > gaas.ph.disp.out
 ```
 
 A **SLURM** cluster (e.g. Perlmutter / Stampede3) is the same idea with
-`#SBATCH` directives and `srun` instead of `mpirun`. Our lab's cluster-specific
-guides (modules, queues, gotchas) are in
-[`reference/hpc-guides/`](https://github.com/chaewoon11/qe-tutorial/tree/master/reference/hpc-guides)
-(Nurion / Stampede3 / Perlmutter).
+`#SBATCH` directives and `srun` instead of `mpirun`. For the exact modules,
+queues, and submission details, consult your HPC centre's documentation; the
+[QE user guide](https://www.quantum-espresso.org/Doc/user_guide/) covers the
+parallelization flags in depth.
 
 :::note Where to run what
 A rough guide from this tutorial: SCF / relax / bands / DOS on a workstation or a

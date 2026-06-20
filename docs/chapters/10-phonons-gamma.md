@@ -214,8 +214,9 @@ number of DFPT iterations.
 :::tip Run phonons on HPC
 DFPT scales steeply with cell size, q-points, and the number of irreducible
 perturbations. Even this 2-atom Γ job is minutes on 68 cores; a full dispersion
-(Chapter 11) is many such jobs. Use a cluster — see [`docs/`](https://github.com/chaewoon11/qe-tutorial/tree/master/reference/hpc-guides)
-for our Nurion / Stampede3 / Perlmutter notes.
+(Chapter 11) is many such jobs. Use a cluster, and consult your HPC centre's
+documentation plus the
+[QE user guide on parallelization](https://www.quantum-espresso.org/Doc/user_guide/).
 :::
 
 ## 6. Reading the results

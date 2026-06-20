@@ -26,3 +26,7 @@ yarn-error.log*
 
 # Learner's own runs (reference outputs in ref/ ARE tracked)
 my.*.out
+
+# Personal / lab-internal (kept local, not published)
+CLAUDE.md
+reference/
