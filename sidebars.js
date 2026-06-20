@@ -30,6 +30,14 @@ const sidebars = {
         'chapters/hpc',
       ],
     },
+    {
+      type: 'category',
+      label: 'Advanced — 2D materials',
+      collapsed: false,
+      items: [
+        'advanced/2d-cell',
+      ],
+    },
   ],
 };
 
