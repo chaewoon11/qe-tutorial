@@ -40,23 +40,53 @@ $\Gamma, X, L, W, K$. We walk the conventional path **L–Γ–X–W–K–Γ**,
 the corner points in Cartesian $2\pi/a$ units (`tpiba_b`) and the number of
 points to interpolate along each segment:
 
-```fortran title="code/05-bands/gaas.bands.in (excerpt)"
-&system
-    nbnd = 16          ! 9 occupied + 7 empty: include conduction bands to see the gap
+```fortran title="code/05-bands/gaas.bands.in"
+&control
+    calculation = 'bands'
+    prefix      = 'gaas'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
 /
+&system
+    ibrav       = 0
+    celldm(1)   = 10.6829
+    nat         = 2
+    ntyp        = 2
+    ecutwfc     = 50.0
+    ecutrho     = 400.0
+    occupations = 'fixed'
+    nbnd        = 16            ! 9 occupied + 7 empty: include conduction bands
+/
+&electrons
+    conv_thr    = 1.0d-10
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+
 K_POINTS tpiba_b
 6
-  0.5  0.5  0.5  40    ! L
-  0.0  0.0  0.0  40    ! Γ
-  1.0  0.0  0.0  40    ! X
-  1.0  0.5  0.0  20    ! W
-  0.75 0.75 0.0  40    ! K
-  0.0  0.0  0.0  1     ! Γ
+  0.5   0.5   0.5   40    ! L
+  0.0   0.0   0.0   40    ! Γ
+  1.0   0.0   0.0   40    ! X
+  1.0   0.5   0.0   20    ! W
+  0.75  0.75  0.0   40    ! K
+  0.0   0.0   0.0    1    ! Γ
 ```
 
-The crucial change from the SCF input is **`nbnd = 16`**: the SCF only needed the
-9 occupied bands, but to *see* a gap you must also compute empty (conduction)
-bands.
+Two changes from the SCF input matter. First, **`calculation = 'bands'`** with
+an explicit `K_POINTS tpiba_b` path (corner points + interpolation counts).
+Second, **`nbnd = 16`**: the SCF only needed the 9 occupied bands, but to *see* a
+gap you must also compute empty (conduction) bands.
 
 ## 3. The three-step workflow
 

@@ -163,9 +163,47 @@ for N in 2 4 6 8 10 12; do
 done
 ```
 
-The aluminium input (a one-atom fcc metal with smearing) is in
-[`code/03-brillouin-zone/`](https://github.com/chaewoon11/qe-tutorial/tree/master/code/03-brillouin-zone),
-along with both data files.
+The aluminium input is a one-atom fcc metal with smearing turned on:
+
+```fortran title="code/03-brillouin-zone/al.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'al'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav       = 0
+    celldm(1)   = 7.6533         ! fcc Al, a = 4.05 Å
+    nat         = 1
+    ntyp        = 1
+    ecutwfc     = 40.0
+    ecutrho     = 320.0
+    occupations = 'smearing'     ! metal: smooth the Fermi-surface step
+    smearing    = 'mv'           ! Marzari–Vanderbilt cold smearing
+    degauss     = 0.02           ! smearing width (Ry)
+/
+&electrons
+    conv_thr    = 1.0d-10
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Al  26.9815  Al.pbe-n-kjpaw_psl.1.0.0.UPF
+
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+
+ATOMIC_POSITIONS alat
+  Al  0.00  0.00  0.00
+
+K_POINTS automatic
+  12 12 12 0 0 0
+```
+
+The k-grid sweep loops this input over `12 12 12 → N N N`.
 [`notebooks/03-kpoint-convergence.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/03-kpoint-convergence.ipynb)
 plots the two convergence curves together:
 

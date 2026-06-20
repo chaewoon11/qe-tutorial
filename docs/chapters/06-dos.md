@@ -40,13 +40,44 @@ pw.x  < gaas.nscf.in  > nscf.out     # dense grid for integration (16×16×16)
 dos.x < gaas.dos.in   > dos.out      # -> gaas.dos
 ```
 
-The nscf input differs from the SCF in three ways that matter for a DOS:
+The nscf input differs from the SCF in the ways that matter for a DOS:
+`occupations = 'tetrahedra'`, more bands, and a denser uniform grid.
 
-```fortran title="code/06-dos/gaas.nscf.in (excerpt)"
+```fortran title="code/06-dos/gaas.nscf.in"
+&control
+    calculation = 'nscf'
+    prefix      = 'gaas'
+    outdir      = './out'
+    pseudo_dir  = '../pseudos'
+    verbosity   = 'high'
+/
 &system
+    ibrav       = 0
+    celldm(1)   = 10.6829
+    nat         = 2
+    ntyp        = 2
+    ecutwfc     = 50.0
+    ecutrho     = 400.0
     occupations = 'tetrahedra'   ! clean BZ integration, no smearing parameter
     nbnd        = 24             ! cover well into the conduction bands
 /
+&electrons
+    conv_thr    = 1.0d-10
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  Ga  69.723   Ga.pbe-dn-kjpaw_psl.0.2.upf
+  As  74.9216  As.pbe-n-kjpaw_psl.0.2.upf
+
+CELL_PARAMETERS alat
+  -0.50   0.00   0.50
+   0.00   0.50   0.50
+  -0.50   0.50   0.00
+
+ATOMIC_POSITIONS alat
+  Ga  0.00  0.00  0.00
+  As  0.25  0.25  0.25
+
 K_POINTS automatic
   16 16 16 0 0 0                 ! dense, uniform (not a path!)
 ```
