@@ -236,5 +236,5 @@ ground state.
 
 ---
 
-**Next:** Chapter 9 — Spin & magnetism *(coming soon)*: collinear `nspin=2`
+**Next:** [Chapter 9 — Spin & magnetism](./09-magnetism.md): collinear `nspin=2`
 in full, noncollinear magnetism, and spin–orbit coupling.

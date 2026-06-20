@@ -1,0 +1,8 @@
+&dos
+    prefix = 'fe'
+    outdir = './out'
+    fildos = 'fe.dos'
+    Emin = 8.0
+    Emax = 25.0
+    DeltaE = 0.02
+/

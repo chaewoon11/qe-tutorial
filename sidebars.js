@@ -24,6 +24,7 @@ const sidebars = {
         'chapters/dos',
         'chapters/charge',
         'chapters/functionals',
+        'chapters/magnetism',
       ],
     },
   ],
