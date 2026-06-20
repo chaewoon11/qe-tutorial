@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 const config = {
   title: 'Quantum ESPRESSO Tutorial',
   tagline: 'Theory + hands-on — from your first SCF to phonons',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   future: {
     v4: true,
