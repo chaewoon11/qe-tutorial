@@ -17,11 +17,11 @@ LO–TO splitting), and runs the job on an HPC cluster.
 
 ---
 
-## 1. Phonons as second derivatives
+## 1. Phonons as second derivatives of the energy
 
 A phonon frequency is set by how the energy curves when atoms are displaced. For
 a displacement of atom $I$ (direction $\alpha$) the **force constants** are the
-second derivatives of the total energy,
+second derivatives of the Born–Oppenheimer total energy,
 
 $$
 C_{I\alpha,J\beta} = \frac{\partial^2 E}{\partial u_{I\alpha}\,\partial u_{J\beta}},
@@ -39,13 +39,80 @@ Diagonalizing $D(\mathbf{q})$ gives the squared frequencies $\omega_{\mathbf{q}\
 (eigenvalues) and the polarization vectors (eigenvectors). A 2-atom cell like
 GaAs has $3\times2 = 6$ modes at each $\mathbf{q}$: 3 acoustic + 3 optical.
 
-You *could* get $C$ by finite differences (displace atoms in a supercell), but
-DFPT is far better: the **2n+1 theorem** says the first-order response of the
-wavefunctions to a perturbation already determines the energy to *third* order —
-so the second derivative (dynamical matrix) needs only **first-order** linear
-response, computed at **any** $\mathbf{q}$ from the primitive cell, with no
-supercell. `ph.x` solves the resulting self-consistent linear-response
-(Sternheimer) equations.
+## 2. What the second derivative actually requires
+
+Start from the force on an atom, which the Hellmann–Feynman theorem (Chapter 4)
+gives the force as a ground-state expectation value, *without* differentiating
+the wavefunctions:
+$F_{I\alpha} = -\int n\,\partial_{I\alpha} v_\text{ext}\,d\mathbf{r} + F^\text{ion}_{I\alpha}$.
+Differentiate **once more** and the density itself must now respond:
+
+$$
+\frac{\partial^2 E}{\partial u_{I\alpha}\partial u_{J\beta}} =
+\int \frac{\partial n(\mathbf{r})}{\partial u_{J\beta}}\,
+\frac{\partial v_\text{ext}(\mathbf{r})}{\partial u_{I\alpha}}\,d\mathbf{r}
++ \int n(\mathbf{r})\,
+\frac{\partial^2 v_\text{ext}(\mathbf{r})}{\partial u_{I\alpha}\partial u_{J\beta}}\,d\mathbf{r}
++ \frac{\partial^2 E_\text{ion–ion}}{\partial u_{I\alpha}\partial u_{J\beta}} .
+$$
+
+Everything here is known from the ground state *except one object*: the
+**first-order density response** $\partial n/\partial u_{J\beta}$ — how the
+electrons rearrange when you nudge an atom. Computing that response *is* DFPT.
+
+## 3. Linear response: the self-consistent Sternheimer equation
+
+The density is built from the occupied Kohn–Sham orbitals, so its first-order
+change comes from the first-order change of those orbitals,
+
+$$
+\Delta n(\mathbf{r}) = 4\,\mathrm{Re}\sum_{v}^{\text{occ}} \psi_v^*(\mathbf{r})\,\Delta\psi_v(\mathbf{r}),
+$$
+
+and each $\Delta\psi_v$ obeys a linear equation obtained by perturbing the
+Kohn–Sham equation — the **Sternheimer equation**:
+
+$$
+(\hat{H}_\text{KS} - \varepsilon_v)\,\lvert\Delta\psi_v\rangle
+= -\,\hat{P}_c\,\Delta v_\text{KS}\,\lvert\psi_v\rangle ,
+$$
+
+where $\hat{P}_c = 1-\sum_v|\psi_v\rangle\langle\psi_v|$ projects onto the empty
+(conduction) subspace. The beauty: this needs **only the occupied orbitals** — no
+sum over unoccupied states. The catch: the perturbing potential is itself
+**self-consistent**, because moving the atom shifts the density, which shifts the
+Hartree and xc potentials:
+
+$$
+\Delta v_\text{KS}(\mathbf{r}) = \underbrace{\Delta v_\text{ext}(\mathbf{r})}_{\text{the bare nudge}}
++ \int \frac{\Delta n(\mathbf{r}')}{|\mathbf{r}-\mathbf{r}'|}\,d\mathbf{r}'
++ \left.\frac{dv_\text{xc}}{dn}\right|_{n(\mathbf{r})}\!\!\Delta n(\mathbf{r}) .
+$$
+
+So DFPT runs a **second self-consistent loop** — exactly like the ground-state
+SCF of Chapter 1, but now for the *response* $\Delta n$ instead of $n$: guess
+$\Delta n$ → build $\Delta v_\text{KS}$ → solve the Sternheimer equation for
+$\Delta\psi_v$ → rebuild $\Delta n$ → repeat. **`tr2_ph` is the `conv_thr` of
+this response loop** (§ note below).
+
+## 4. Why DFPT — and any **q** for free
+
+Two payoffs make this worth it over brute-force finite differences ("frozen
+phonons", where you displace atoms in a supercell and re-run SCF):
+
+- **The 2n+1 theorem.** Knowing the wavefunctions to order $n$ determines the
+  energy to order $2n+1$. The *first*-order response $\Delta\psi$ ($n=1$) thus
+  fixes the energy to *third* order — enough for the second derivative (and even
+  third-order anharmonic constants). You never need the second-order
+  wavefunctions.
+- **Each q is independent.** A displacement wave $u_{I\alpha}\propto e^{i\mathbf{q}\cdot\mathbf{R}_I}$
+  is *monochromatic*: it couples a Bloch state at $\mathbf{k}$ only to $\mathbf{k}+\mathbf{q}$.
+  So the response at wavevector $\mathbf{q}$ can be computed **in the primitive
+  cell**, one q at a time, at **arbitrary q** — no supercell. (Frozen phonons
+  need a supercell commensurate with $\mathbf{q}$, which explodes for general q.)
+
+`ph.x` implements all of this. The canonical reference is Baroni, de Gironcoli,
+Dal Corso & Giannozzi, *Rev. Mod. Phys.* **73**, 515 (2001).
 
 :::note Why `tr2_ph = 1e-16` ≈ an SCF `conv_thr` of `1e-8`
 `ph.x` has its own convergence threshold, **`tr2_ph`**, and it looks far tighter
@@ -59,7 +126,7 @@ convention is why phonon thresholds carry "extra" zeros; `1e-16` here is a norma
 well-converged setting, not an extreme one.
 :::
 
-## 2. Hands-on: Γ phonons of GaAs
+## 5. Hands-on: Γ phonons of GaAs
 
 The recipe is **converged SCF → `ph.x`**. The phonon run reads the SCF
 wavefunctions from `outdir`, so both steps share the same directory. Because GaAs
@@ -108,7 +175,7 @@ perturbations. Even this 2-atom Γ job is minutes on 68 cores; a full dispersion
 for our Nurion / Stampede3 / Perlmutter notes.
 :::
 
-## 3. Reading the results
+## 6. Reading the results
 
 **Frequencies at Γ** (`grep freq gaas.ph.out`):
 
