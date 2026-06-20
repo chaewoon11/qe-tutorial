@@ -27,6 +27,7 @@ const sidebars = {
         'chapters/magnetism',
         'chapters/phonons-gamma',
         'chapters/phonon-dispersion',
+        'chapters/hpc',
       ],
     },
   ],

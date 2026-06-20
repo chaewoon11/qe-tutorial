@@ -48,9 +48,9 @@ Chapters 0–7 cover the ground state and electronic structure; 8–12 cover
 functionals, magnetism, lattice dynamics, and HPC.
 
 :::info Status
-This site is under active development. **Chapters 0–11** are complete and
-runnable (all of Phase 1, plus functionals/DFT+U, magnetism, and DFPT phonons
-through the full dispersion); only Chapter 12 (running QE at scale) remains.
+**All 13 chapters (0–12) are complete and runnable** — the full curriculum, from
+your first SCF to phonon dispersions and running QE at scale on HPC, every step
+verified against real Quantum ESPRESSO output.
 :::
 
 ## How to use this site

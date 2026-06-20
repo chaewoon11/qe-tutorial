@@ -170,6 +170,6 @@ convergence.
 
 ---
 
-**Next:** Chapter 12 — Running QE at scale *(coming soon)*: parallelization
-levels (`-npool` / `-ndiag` / `-nband`), restarts, and HPC job scripts — the
-practical layer behind the phonon jobs we just ran on Nurion.
+**Next:** [Chapter 12 — Running QE at scale](./12-hpc.md): parallelization levels
+(`-npool` / `-ndiag` / `-nband`), restarts, and HPC job scripts — the practical
+layer behind the phonon jobs we just ran on Nurion.
