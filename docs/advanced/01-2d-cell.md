@@ -65,14 +65,43 @@ isolated. Two requirements:
 We build graphene with an explicit hexagonal cell (keeping the `ibrav = 0`
 convention of the core tutorial), the two carbon atoms at $z=0$:
 
-```fortran title="code/advanced/01-2d-cell/graphene.scf.in (structure, relaxed)"
+Here is the complete canonical input — the **relaxed** cell (§4) with the
+converged vacuum (§3) and the `scf` threshold from the convention above:
+
+```fortran title="code/advanced/01-2d-cell/graphene.scf.in"
+&control
+    calculation = 'scf'
+    prefix      = 'graphene'
+    outdir      = './out'
+    pseudo_dir  = '../../pseudos'
+    verbosity   = 'high'
+/
+&system
+    ibrav = 0
+    nat = 2
+    ntyp = 1
+    ecutwfc = 50.0
+    ecutrho = 400.0
+    assume_isolated = '2D'        ! cutoff Coulomb along z (slab in xy, centred at z=0)
+    occupations = 'smearing'      ! graphene is a semimetal
+    smearing = 'mv'
+    degauss = 0.01
+/
+&electrons
+    conv_thr = 1.0d-20
+    mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  C 12.011 C.pbe-n-kjpaw_psl.1.0.0.UPF
 CELL_PARAMETERS angstrom
-   2.467137   0.000000   0.000000     # a (relaxed, §4)
-  -1.233568   2.136488   0.000000     # a2 = a(-1/2, √3/2, 0)
-   0.000000   0.000000  20.000000     # c = vacuum thickness (§3)
+   2.467137   0.000000   0.000000     ! a (relaxed, §4)
+  -1.233568   2.136488   0.000000     ! a2 = a(-1/2, √3/2, 0)
+   0.000000   0.000000  20.000000     ! c = vacuum thickness (§3)
 ATOMIC_POSITIONS crystal
-   C 0.000000000 0.000000000 0.0
-   C 0.333333333 0.666666667 0.0
+  C 0.000000000 0.000000000 0.0       ! both atoms at z = 0
+  C 0.333333333 0.666666667 0.0
+K_POINTS automatic
+  12 12 1 0 0 0                        ! N×N×1, N a multiple of 3 (K on grid)
 ```
 
 (The vacuum test in §3 starts from the experimental $a=2.46$ Å; §4 then relaxes
@@ -132,6 +161,52 @@ With the parameters fixed (`ecutwfc=50`, `ecutrho=400`, `12×12×1`, `c=20 Å`),
 relax the in-plane lattice. Graphene's two atoms are fixed by symmetry, so only
 the lattice constant can change — a **`vc-relax` with `cell_dofree='2Dxy'`**
 (relax $a$, **keep the vacuum $c$ fixed**), at the relax threshold `conv_thr=1.0d-18`:
+
+```fortran title="code/advanced/01-2d-cell/graphene.relax.in"
+&control
+    calculation = 'vc-relax'
+    prefix      = 'graphene'
+    outdir      = './out'
+    pseudo_dir  = '../../pseudos'
+    verbosity   = 'high'
+    tprnfor = .true.
+    tstress = .true.
+    forc_conv_thr = 1.0d-4
+/
+&system
+    ibrav = 0
+    nat = 2
+    ntyp = 1
+    ecutwfc = 50.0
+    ecutrho = 400.0
+    assume_isolated = '2D'
+    occupations = 'smearing'
+    smearing = 'mv'
+    degauss = 0.01
+/
+&electrons
+    conv_thr = 1.0d-18
+    mixing_beta = 0.7
+/
+&ions
+    ion_dynamics = 'bfgs'
+/
+&cell
+    cell_dofree = '2Dxy'          ! relax in-plane lattice only; keep vacuum c fixed
+    press = 0.0d0
+/
+ATOMIC_SPECIES
+  C 12.011 C.pbe-n-kjpaw_psl.1.0.0.UPF
+CELL_PARAMETERS angstrom
+   2.460000   0.000000   0.000000     ! start from the experimental a
+  -1.230000   2.130000   0.000000
+   0.000000   0.000000  20.000000
+ATOMIC_POSITIONS crystal
+  C 0.000000000 0.000000000 0.0
+  C 0.333333333 0.666666667 0.0
+K_POINTS automatic
+  12 12 1 0 0 0
+```
 
 ```bash
 cd code/advanced/01-2d-cell
