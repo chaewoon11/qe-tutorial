@@ -1,0 +1,96 @@
+
+     Program Q2R v.7.5 starts on 21Jun2026 at  3:45:57 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     1 processors
+
+     MPI processes distributed on     1 nodes
+     78473 MiB available memory on the printing compute node when the environment starts
+ 
+
+  reading grid info from file nbse2.dyn0    
+
+  reading force constants from file nbse2.dyn1
+  Dielectric Tensor not found
+  nqs=            1
+ q=   0.00000000  0.00000000  0.00000000
+  reading force constants from file nbse2.dyn2
+  nqs=            2
+ q=   0.00000000  0.19245815  0.00000000
+ q=   0.00000000 -0.19245815  0.00000000
+  reading force constants from file nbse2.dyn3
+  nqs=            2
+ q=   0.00000000  0.38491630  0.00000000
+ q=   0.00000000 -0.38491630  0.00000000
+  reading force constants from file nbse2.dyn4
+  nqs=            1
+ q=   0.00000000 -0.57737445  0.00000000
+  reading force constants from file nbse2.dyn5
+  nqs=            4
+ q=   0.16666667  0.09622907  0.00000000
+ q=  -0.16666667 -0.09622907  0.00000000
+ q=  -0.16666667  0.09622907  0.00000000
+ q=   0.16666667 -0.09622907  0.00000000
+  reading force constants from file nbse2.dyn6
+  nqs=            4
+ q=   0.16666667  0.28868722  0.00000000
+ q=  -0.16666667 -0.28868722  0.00000000
+ q=  -0.16666667  0.28868722  0.00000000
+ q=   0.16666667 -0.28868722  0.00000000
+  reading force constants from file nbse2.dyn7
+  nqs=            4
+ q=   0.16666667  0.48114537  0.00000000
+ q=  -0.16666667 -0.48114537  0.00000000
+ q=  -0.16666667  0.48114537  0.00000000
+ q=   0.16666667 -0.48114537  0.00000000
+  reading force constants from file nbse2.dyn8
+  nqs=            4
+ q=   0.33333333  0.19245815  0.00000000
+ q=  -0.33333333 -0.19245815  0.00000000
+ q=  -0.33333333  0.19245815  0.00000000
+ q=   0.33333333 -0.19245815  0.00000000
+  reading force constants from file nbse2.dyn9
+  nqs=            4
+ q=   0.33333333  0.38491630  0.00000000
+ q=  -0.33333333 -0.38491630  0.00000000
+ q=  -0.33333333  0.38491630  0.00000000
+ q=   0.33333333 -0.38491630  0.00000000
+  reading force constants from file nbse2.dyn10
+  nqs=            2
+ q=   0.33333333  0.57737445  0.00000000
+ q=  -0.33333333  0.57737445  0.00000000
+  reading force constants from file nbse2.dyn11
+  nqs=            2
+ q=   0.33333333  0.00000000  0.00000000
+ q=  -0.33333333  0.00000000  0.00000000
+  reading force constants from file nbse2.dyn12
+  nqs=            2
+ q=  -0.50000000 -0.28868722  0.00000000
+ q=   0.50000000 -0.28868722  0.00000000
+  reading force constants from file nbse2.dyn13
+  nqs=            4
+ q=  -0.50000000 -0.09622907  0.00000000
+ q=   0.50000000  0.09622907  0.00000000
+ q=   0.50000000 -0.09622907  0.00000000
+ q=  -0.50000000  0.09622907  0.00000000
+
+      q-space grid ok, #points =   36
+
+      fft-check success (sum of imaginary terms < 10^-12)
+ 
+     Q2R          :      0.08s CPU      0.52s WALL
+
+ 
+   This run was terminated on:   3:45:58  21Jun2026            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=

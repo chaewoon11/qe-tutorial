@@ -418,10 +418,26 @@ phonon dispersion of undistorted 1H-NbSe2 (metal, no LO-TO)
 mode. `matdyn.x` writes negative numbers there; that dip is the Kohn anomaly going
 unstable, the DFT fingerprint of the CDW.
 
-:::info Result to follow
-Soft-mode frequency at $\mathbf q_\text{CDW}=(\tfrac13,0)$ (expected **imaginary**,
-plotted negative) and the `degauss` sensitivity test will be reported here once the
-DFPT run and the dispersion plot are complete.
+![Monolayer NbSe2 phonon dispersion with soft mode](/img/MP1-nbse2-phonon.png)
+
+**Result.** A whole branch is pushed **below zero** over a broad region centred on
+$\mathbf q_\text{CDW}=(\tfrac13,0)=\tfrac23\,\Gamma\text M$. The directly-computed
+dynamical matrix at that **q**-grid point gives a frequency of **−70.6 cm⁻¹**
+(imaginary); the interpolated dispersion bottoms out at **≈ −72 cm⁻¹** — the two
+agree, so the instability is real and not an interpolation artefact
+([`notebooks/MP1-nbse2-phonon.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/MP1-nbse2-phonon.ipynb)).
+This is the **deep, extended Kohn anomaly** that NbSe₂ is known for — note the dip is
+*broad* in **q**, not a sharp spike. The acoustic modes return cleanly to ≈0 at
+$\Gamma$ (the acoustic sum rule holds), confirming the instability sits at **finite
+q**, not at the zone centre. That a clear imaginary mode survives even at this
+moderate `degauss = 0.01` shows how strongly the monolayer wants to distort.
+
+:::tip The soft mode depends on `degauss` — that's the physics
+Because the depth of the dip is set by the Fermi-surface nesting, it sharpens as you
+**lower `degauss`** (cool the electrons below $T_\text{CDW}$) and deepens with a
+denser **k**-grid. Re-running at `degauss = 0.005, 0.0025` and k = 18, 24 makes the
+mode plunge further — a direct, visual demonstration that the CDW is an
+electronic-temperature-driven instability (Exercises 2–3).
 :::
 
 ### Stage 2 — freeze the soft mode into a 3×3 supercell
