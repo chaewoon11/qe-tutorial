@@ -515,10 +515,39 @@ $\Delta E_\text{CDW}$ as the ground state — not to assume the first pattern yo
 freeze in is the winner.
 :::
 
-:::info Result to follow
-The condensation energy $\Delta E_\text{CDW}$ (meV/formula unit) and the relaxed
-distortion pattern — the characteristic Nb triangular clustering — will be reported
-here once the 3×3 supercell relaxation completes.
+**Result.** Freezing in the 3Q (triangular) combination of the soft mode and
+relaxing the 27-atom cell gives a genuine energy minimum below the undistorted
+reference:
+
+$$
+\Delta E_\text{CDW} = \frac{E_\text{3×3 distorted} - E_\text{3×3 undistorted}}{9}
+   = \frac{-25.3\ \text{meV}}{9} = \mathbf{-2.8\ meV/f.u.}
+$$
+
+The relaxed structure is the **textbook 3×3 triangular CDW**: the Nb atoms move by
+only **~0.06–0.09 Å** (a few % of the 3.47 Å spacing), but that small shift groups
+them into **triangular clusters** — the nearest-neighbour Nb–Nb bond *shortens* from
+3.47 Å to **3.38 Å** inside a cluster and *stretches* to **3.63 Å** between clusters
+([`notebooks/MP1-nbse2-cdw-structure.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/MP1-nbse2-cdw-structure.ipynb)).
+
+![Relaxed 3x3 CDW structure of NbSe2: Nb triangular clusters](/img/MP1-nbse2-cdw-structure.png)
+
+:::tip Why so small? NbSe₂ is a *weak* CDW
+The displacement looks tiny — and that is the physics, not a failure. A CDW is an
+**electronic** instability of a metal, not a bond-breaking reconstruction: only the
+nested sliver of the Fermi surface gains a (pseudo)gap, so the energy and the
+distortion are both small. The scale is set by the transition temperature:
+
+$$
+\Delta E_\text{CDW} \approx k_B T_\text{CDW}
+\;\Rightarrow\; T_\text{CDW} \sim \frac{2.8\ \text{meV}}{k_B} \approx 33\ \text{K},
+$$
+
+right at NbSe₂'s observed $T_\text{CDW}\!\approx\!33$ K. A **small** $\Delta E$ *is* a
+**low** transition temperature — they are the same statement. A *strong*-coupling CDW
+such as 1T-TaS₂ ("Star of David", $\sim$0.2–0.3 Å shifts, $T_\text{CDW}\!\sim$200–350 K)
+distorts far more visibly; NbSe₂ is the textbook **weak** CDW, which also lets it
+coexist with superconductivity at low $T$.
 :::
 
 ### Stage 3 — see the electronic structure change (DOS) and the charge modulation
@@ -567,7 +596,32 @@ charge-modulation figure will be added here once the supercell relaxation comple
 
 ---
 
-## 5. Why this is the right capstone
+## 5. Experimental signatures — can you see this in the lab?
+
+Every quantity we computed has a direct experimental counterpart; NbSe₂ is in fact
+one of the most-studied CDW systems. The small atomic displacement does **not** make
+the CDW hard to detect — the *charge* modulation it drives, the superlattice peaks,
+and the soft phonon are all unambiguous.
+
+| Computed here | Measured by | What is seen |
+|---|---|---|
+| soft mode −70 cm⁻¹ at $\mathbf q_\text{CDW}$ | inelastic X-ray / neutron scattering | the phonon **Kohn anomaly** dipping toward zero at $\mathbf q_\text{CDW}$ |
+| 3×3 triangular distortion | X-ray / electron diffraction | **superlattice (satellite) peaks** at $(\tfrac13,0)$ |
+| charge modulation | **STM/STS** | the 3×3 charge pattern imaged directly in real space |
+| pseudogap at $E_F$ | STS, ARPES | partial gap + Fermi-surface reconstruction |
+| $\Delta E_\text{CDW}\!\approx\!k_BT_\text{CDW}$ | transport, specific heat | resistivity kink / heat-capacity anomaly at $\approx$33 K |
+
+Monolayer NbSe₂ was characterized exactly this way by STM (Ugeda *et al.*,
+*Nat. Phys.* **12**, 92, 2016), which resolved the 3×3 CDW *and* the superconducting
+gap on the same sheet; the bulk soft phonon was mapped by inelastic X-ray scattering
+(Weber *et al.*, *PRL* **107**, 107403, 2011) — the experimental twin of our Stage-1
+dispersion. The decisive fingerprint is the **temperature dependence**: the pattern
+appears below $\approx$33 K and melts above it, which is precisely the
+`degauss`-as-electronic-temperature physics of §2 realized with a real thermostat.
+
+---
+
+## 6. Why this is the right capstone
 
 Every ingredient is something you already met, now doing real work together:
 
