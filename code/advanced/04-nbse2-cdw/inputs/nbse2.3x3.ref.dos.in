@@ -1,0 +1,8 @@
+&dos
+  prefix = 'nbse2_ref'
+  outdir = './out_ref'
+  fildos = 'nbse2_ref.dos'
+  emin = -8.0
+  emax = 6.0
+  deltae = 0.02
+/

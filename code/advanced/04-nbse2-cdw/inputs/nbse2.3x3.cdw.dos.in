@@ -1,0 +1,8 @@
+&dos
+  prefix = 'nbse2_cdw'
+  outdir = './out_cdw'
+  fildos = 'nbse2_cdw.dos'
+  emin = -8.0
+  emax = 6.0
+  deltae = 0.02
+/

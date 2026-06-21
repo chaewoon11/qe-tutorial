@@ -1,0 +1,11 @@
+&inputpp
+  prefix = 'nbse2_cdw'
+  outdir = './out_cdw'
+  plot_num = 0
+  filplot = 'nbse2_cdw.chg'
+/
+&plot
+  iflag = 3
+  output_format = 6
+  fileout = 'nbse2_cdw.charge.cube'
+/

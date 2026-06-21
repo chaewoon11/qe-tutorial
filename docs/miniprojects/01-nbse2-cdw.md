@@ -603,9 +603,27 @@ phonons and electron–phonon coupling** we computed in Stage 1. Good CDW phonon
 correct $T_c$ physics out.
 :::
 
-:::info Result to follow
-The DOS overlay (undistorted vs 3×3 CDW, pseudogap at $E_F$) and the real-space
-charge-modulation figure will be added here once the supercell relaxation completes.
+**Result — the pseudogap.** Comparing the DOS of the undistorted 3×3 metal and the
+relaxed CDW (each from an 8×8×1 tetrahedron `nscf`, aligned to its own $E_F$, per
+formula unit) shows the CDW **carving a dip at $E_F$**
+([`notebooks/MP1-nbse2-dos.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/MP1-nbse2-dos.ipynb)):
+
+![NbSe2 CDW pseudogap in the DOS](/img/MP1-nbse2-dos.png)
+
+The density of states at the Fermi level drops from **4.8** to **2.9
+states/eV/f.u.** — a **≈40 % depletion** — but it does **not** reach zero. This is the
+**pseudogap**: only the nested part of the Fermi surface gaps out, the rest stays
+metallic (so NbSe₂ remains a conductor, and superconducts at low $T$). It is the
+real-material counterpart of the §1.5 standing-wave argument — the CDW lowers the
+electronic energy by pushing occupied weight down and thinning the states at $E_F$,
+*partial* here versus *total* in the 1D toy. STM/STS measures exactly this dip.
+
+:::info Charge modulation (result to follow)
+The STM-like charge map — the integrated local DOS in a window at $E_F$ (`pp.x`
+`plot_num=3`), which shows the 3×3 pattern the way a microscope would — will be added
+here. (The *total* charge density is dominated by the atomic cores and does not by
+itself reveal the few-percent CDW modulation; the near-$E_F$ states are the right
+quantity, matching §1.5.)
 :::
 
 ---
