@@ -550,6 +550,20 @@ distorts far more visibly; NbSe₂ is the textbook **weak** CDW, which also lets
 coexist with superconductivity at low $T$.
 :::
 
+**Triangular (3Q) vs stripe (1Q).** We relaxed *both* candidate patterns from §4 to
+see which the crystal actually prefers:
+
+| pattern | $\Delta E_\text{CDW}$ |
+|---|---|
+| **3Q (triangular)** | **−2.82 meV/f.u.** ← ground state |
+| 1Q (stripe) | −1.68 meV/f.u. |
+
+The **3Q triangular** distortion wins by ~1.1 meV/f.u. — so the Nb-cluster pattern
+above is the genuine ground state, exactly as observed for unstrained NbSe₂, while
+the 1Q stripe is a higher-energy metastable state (it can be stabilized by strain).
+This is why one must relax *competing* patterns and compare, rather than trusting the
+first freeze-in.
+
 ### Stage 3 — see the electronic structure change (DOS) and the charge modulation
 
 This is where we answer "**does the band structure actually change?**" — and the
