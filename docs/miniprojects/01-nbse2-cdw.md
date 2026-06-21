@@ -158,7 +158,56 @@ distortion that hybridizes $-k_F \leftrightarrow +k_F$, and because those states
 degenerate at $E_F$, the mixing is maximally effective — it opens a gap and lowers
 the electronic energy.
 
-### 1.5 The energy balance — Peierls' theorem
+### 1.5 Standing waves: the gap and the charge modulation in real space
+
+§1.4 was in momentum space; the same physics in **real space** makes both the gap
+*and* the charge-density wave fall out at once — and gives the gap by an even simpler
+route than the tight-binding $2\times2$. The $2k_F$ potential mixes the two degenerate
+travelling waves $e^{\pm ik_Fx}$ into **standing waves**
+
+$$
+\psi_+ \propto \cos(k_F x), \qquad \psi_- \propto \sin(k_F x),
+$$
+
+whose charge densities are **no longer flat**:
+
+$$
+|\psi_+|^2 = 1 + \cos(2k_F x), \qquad |\psi_-|^2 = 1 - \cos(2k_F x).
+$$
+
+A travelling wave $e^{ik_Fx}$ has uniform $|\psi|^2$ — charge spread evenly, a metal.
+The standing waves instead **pile charge periodically** with the CDW period
+$2\pi/2k_F = 2a$: $\psi_+$ heaps it on the ion rows, $\psi_-$ in between. This is the
+**"flat → localized"** picture that *is* the charge-density wave.
+
+![Flat vs localized standing-wave charge density](/img/MP1-peierls-density.png)
+
+**The gap is just the energy difference of the two standing waves.** The lattice
+distortion supplies a potential whose only Fourier component is at $2k_F$,
+$V(x) = 2V_{2k_F}\cos(2k_F x)$ with $V_{2k_F}\propto u$. The two standing waves share
+the same kinetic energy but sample this potential oppositely:
+
+$$
+E_\pm = \varepsilon_0 + \langle \psi_\pm|V|\psi_\pm\rangle = \varepsilon_0 \pm V_{2k_F},
+$$
+
+since $\langle\psi_+|V|\psi_+\rangle = \tfrac1L\!\int (1+\cos 2k_Fx)\,2V_{2k_F}\cos(2k_Fx)\,dx = V_{2k_F}$
+(and $-V_{2k_F}$ for $\psi_-$). Hence
+
+$$
+\boxed{\;2\Delta = E_+ - E_- = 2\,|V_{2k_F}| \;\propto\; u\;}
+$$
+
+— the gap is **twice the $2k_F$ Fourier component of the potential**, growing linearly
+with the distortion, exactly the tight-binding $2\Delta = 4\,\delta t$ by another road.
+The occupied (lower) band is the standing wave whose charge sits in the **low-potential**
+regions, so filling it simultaneously opens the gap and produces the charge pile-up.
+
+This is exactly what we **plot** for NbSe₂ in Stage 3: the total $|\psi|^2$ summed over
+occupied states — **flat** in the undistorted metal, **modulated** (charge localized on
+the Nb clusters) in the CDW.
+
+### 1.6 The energy balance — Peierls' theorem
 
 Summing the lowered occupied states against the elastic cost of the distortion,
 
@@ -491,9 +540,13 @@ pw.x  < nbse2.nscf.in    > nbse2.nscf.out
 dos.x < nbse2.dos.in     > nbse2.dos.out
 ```
 
-Then `pp.x` on the relaxed 3×3 cell gives the valence charge density, whose periodic
-modulation across the supercell — the Nb triangular clustering — **is** the charge
-density wave you can plot in real space.
+Then `pp.x` on the relaxed 3×3 cell gives the valence charge density
+$\rho(\mathbf r)=\sum_{n\mathbf k}|\psi_{n\mathbf k}(\mathbf r)|^2$ — the real, 2D
+version of the $|\psi|^2$ cartoon in §1.5. In the undistorted metal it is essentially
+**flat** (uniform); in the relaxed CDW it is **modulated**, with charge **localized on
+the Nb triangular clusters**. That periodic pile-up across the supercell — flat →
+localized — **is** the charge-density wave, now in a real material rather than the 1D
+toy.
 
 :::note Where this leads — superconductivity
 The pseudogap is the Fermi-surface reconstruction that, at lower temperature,
