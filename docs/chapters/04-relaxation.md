@@ -260,7 +260,7 @@ stress before you quote an energy.)
    chapters compute *at* this lattice constant.)
 4. **Why re-converge?** Run a single `scf` at the relaxed lattice constant and
    compare its total energy / pressure to the last step of the `vc-relax`. How
-   big is the Pulay-stress artefact at `ecutwfc = 50`?
+   big is the Pulay-stress artifact at `ecutwfc = 50`?
 
 <details>
 <summary>Show solutions</summary>

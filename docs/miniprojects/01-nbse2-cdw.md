@@ -424,7 +424,7 @@ unstable, the DFT fingerprint of the CDW.
 $\mathbf q_\text{CDW}=(\tfrac13,0)=\tfrac23\,\Gamma\text M$. The directly-computed
 dynamical matrix at that **q**-grid point gives a frequency of **−70.6 cm⁻¹**
 (imaginary); the interpolated dispersion bottoms out at **≈ −72 cm⁻¹** — the two
-agree, so the instability is real and not an interpolation artefact
+agree, so the instability is real and not an interpolation artifact
 ([`notebooks/MP1-nbse2-phonon.ipynb`](https://github.com/chaewoon11/qe-tutorial/blob/master/notebooks/MP1-nbse2-phonon.ipynb)).
 This is the **deep, extended Kohn anomaly** that NbSe₂ is known for — note the dip is
 *broad* in **q**, not a sharp spike. The acoustic modes return cleanly to ≈0 at
