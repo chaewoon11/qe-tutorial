@@ -176,11 +176,13 @@ $$
 $$
 
 A travelling wave $e^{ik_Fx}$ has uniform $|\psi|^2$ — charge spread evenly, a metal.
-The standing waves instead **pile charge periodically** with the CDW period
-$2\pi/2k_F = 2a$: $\psi_+$ heaps it on the ion rows, $\psi_-$ in between. This is the
-**"flat → localized"** picture that *is* the charge-density wave.
+The standing wave instead **piles charge periodically** with the CDW period
+$2\pi/2k_F = 2a$. And the lattice distorts to match: the atoms **dimerize**,
+$u_n = u_0(-1)^n$, pairing into short bonds with the charge heaped on them — the
+**"flat → localized"** picture that *is* the charge-density wave (top: charge;
+bottom: the uniform vs dimerized chains).
 
-![Flat vs localized standing-wave charge density](/img/MP1-peierls-density.png)
+![Flat vs localized standing-wave charge density and the dimerized lattice](/img/MP1-peierls-density.png)
 
 **The gap is just the energy difference of the two standing waves.** The lattice
 distortion supplies a potential whose only Fourier component is at $2k_F$,
